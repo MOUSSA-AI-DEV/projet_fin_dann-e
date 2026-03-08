@@ -50,6 +50,8 @@ class AuthController extends Controller
             'ville'            => ['nullable', 'string', 'max:100'],
         ]);
 
+        $role = User::count() === 0 ? 'admin' : 'user';
+
         $user = User::create([
             'nom'               => $validated['nom'],
             'prenom'            => $validated['prenom'],
@@ -59,7 +61,7 @@ class AuthController extends Controller
             'code_postal'       => $validated['code_postal'] ?? null,
             'ville'             => $validated['ville'] ?? null,
             'password'          => Hash::make($validated['password']),
-            'role'              => 'user',
+            'role'              => $role,
             'is_active'         => true,
         ]);
 
