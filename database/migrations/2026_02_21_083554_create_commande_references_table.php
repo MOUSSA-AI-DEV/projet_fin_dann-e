@@ -1,5 +1,4 @@
 <?php
-// database/migrations/2026_02_21_000103_create_commande_references_table.php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
