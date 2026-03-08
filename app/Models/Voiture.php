@@ -12,12 +12,11 @@ class Voiture extends Model
         'annee_debut',
         'motorisation',
         'puissance',
-        'reference_id',
         'immatriculation_type'
     ];
 
     public function reference()
     {
-        return $this->belongsTo(Reference::class, 'reference_id');
+        return $this->belongsToMany(Reference::class, 'reference_id');
     }
 }

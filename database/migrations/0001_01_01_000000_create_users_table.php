@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->text('adresse_livraison')->nullable();
             $table->string('code_postal', 10)->nullable();
             $table->string('ville', 100)->nullable();
-            $table->string('pays', 50)->default('France');
             $table->boolean('is_active')->default(true);
             $table->string('remember_token', 100)->nullable();
             $table->timestamps();

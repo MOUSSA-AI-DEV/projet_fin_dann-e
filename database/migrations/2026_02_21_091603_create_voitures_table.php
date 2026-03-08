@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->year('annee_debut');
             $table->string('motorisation', 50);
             $table->unsignedInteger('puissance');
-            $table->foreignId('reference_id')->constrained('references')->onDelete('cascade');
             $table->string('immatriculation_type', 20)->nullable();
             $table->timestamps();
             $table->index(['marque', 'modele']);
