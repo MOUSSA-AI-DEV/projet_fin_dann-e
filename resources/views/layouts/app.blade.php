@@ -217,11 +217,11 @@
             @if(Auth::user()->role === 'admin')
             <div class="nav-section-title">Administration</div>
 
-            <a href="#" class="nav-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <span class="nav-icon">⚙️</span> Panel Admin
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="{{ route('admin.users.index') }}" class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                 <span class="nav-icon">👥</span> Utilisateurs
             </a>
             @endif

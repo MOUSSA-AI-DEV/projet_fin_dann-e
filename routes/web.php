@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin', function () {
             return 'Panel Administrateur';
         })->name('admin.dashboard');
+
+        Route::prefix('admin')->name('admin.')->group(function () {
+            Route::resource('users', AdminUserController::class);
+            Route::patch('users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
+        });
     });
 });
 
