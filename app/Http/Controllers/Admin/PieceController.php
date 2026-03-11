@@ -54,6 +54,7 @@ class PieceController extends Controller
 
     public function show(Piece $piece)
     {
+        $piece->load(['category', 'marque', 'references.voitures']);
         return view('admin.pieces.show', compact('piece'));
     }
 

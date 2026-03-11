@@ -21,6 +21,7 @@
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">ID</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Code / Nom</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Piéce Associée</th>
+                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Voitures Compatibles</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Garantie</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Statut</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase; text-align: right;">Actions</th>
@@ -35,6 +36,15 @@
                                 <div style="font-size: 0.75rem; color: #64748b;">{{ $reference->nom }}</div>
                             </td>
                             <td style="padding: 1rem; color: #475569;">{{ $reference->piece->nom }}</td>
+                            <td style="padding: 1rem;">
+                                @if($reference->voitures->count() > 0)
+                                    <span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #eff6ff; color: #2563eb; border-radius: 9999px; font-size: 0.75rem; font-weight: 600;">
+                                        {{ $reference->voitures->count() }} voiture(s)
+                                    </span>
+                                @else
+                                    <span style="color: #94a3b8; font-size: 0.75rem;">Aucune</span>
+                                @endif
+                            </td>
                             <td style="padding: 1rem;">{{ $reference->garantie ?? '-' }}</td>
                             <td style="padding: 1rem;">
                                 @if($reference->is_active)
@@ -44,6 +54,7 @@
                                 @endif
                             </td>
                             <td style="padding: 1rem; text-align: right; display: flex; gap: 0.5rem; justify-content: flex-end;">
+                                <a href="{{ route('admin.references.show', $reference) }}" style="padding: 5px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; color: #475569; text-decoration: none; font-size: 0.8rem;">Détails</a>
                                 <a href="{{ route('admin.references.edit', $reference) }}" style="padding: 5px 10px; background: #f1f5f9; border-radius: 4px; color: #475569; text-decoration: none; font-size: 0.8rem;">Modifier</a>
                                 
                                 <form action="{{ route('admin.references.destroy', $reference) }}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr ?');">

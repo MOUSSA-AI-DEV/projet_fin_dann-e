@@ -52,6 +52,7 @@
                                 @endif
                             </td>
                             <td style="padding: 1rem; text-align: right; display: flex; gap: 0.5rem; justify-content: flex-end;">
+                                <a href="{{ route('admin.pieces.show', $piece) }}" style="padding: 5px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; color: #475569; text-decoration: none; font-size: 0.8rem;">Détails</a>
                                 <a href="{{ route('admin.pieces.edit', $piece) }}" style="padding: 5px 10px; background: #f1f5f9; border-radius: 4px; color: #475569; text-decoration: none; font-size: 0.8rem;">Modifier</a>
                                 
                                 <form action="{{ route('admin.pieces.destroy', $piece) }}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr ?');">

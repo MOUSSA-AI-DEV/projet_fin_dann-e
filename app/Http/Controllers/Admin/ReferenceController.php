@@ -13,7 +13,7 @@ class ReferenceController extends Controller
 {
     public function index()
     {
-        $references = Reference::with('piece')->latest()->paginate(10);
+        $references = Reference::with(['piece', 'voitures'])->latest()->paginate(10);
         return view('admin.references.index', compact('references'));
     }
 
