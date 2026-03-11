@@ -28,6 +28,6 @@ class Reference extends Model
 
     public function voitures()
     {
-        return $this->belongsToMany(Voiture::class, 'reference_id');
+        return $this->belongsToMany(Voiture::class, 'reference_voiture');
     }
 }
