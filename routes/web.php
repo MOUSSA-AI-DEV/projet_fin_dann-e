@@ -31,6 +31,14 @@ Route::middleware('auth')->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('users', AdminUserController::class);
             Route::patch('users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
+            
+            Route::resource('marques', \App\Http\Controllers\Admin\MarqueController::class);
+            Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+            Route::resource('pieces', \App\Http\Controllers\Admin\PieceController::class);
+            Route::resource('references', \App\Http\Controllers\Admin\ReferenceController::class);
+            Route::resource('voitures', \App\Http\Controllers\Admin\VoitureController::class);
+            Route::post('references/{reference}/voitures', [\App\Http\Controllers\Admin\ReferenceVoitureController::class, 'attachVoiture'])->name('references.voitures.attach');
+            Route::delete('references/{reference}/voitures/{voiture}', [\App\Http\Controllers\Admin\ReferenceVoitureController::class, 'detachVoiture'])->name('references.voitures.detach');
         });
     });
 });

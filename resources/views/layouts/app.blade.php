@@ -228,14 +228,20 @@
 
             <div class="nav-section-title">Catalogue</div>
 
-            <a href="#" class="nav-item">
+            <a href="{{ route('admin.pieces.index') }}" class="nav-item {{ request()->routeIs('admin.pieces.*') ? 'active' : '' }}">
                 <span class="nav-icon">🔩</span> Pièces
             </a>
-            <a href="#" class="nav-item">
+            <a href="{{ route('admin.categories.index') }}" class="nav-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                 <span class="nav-icon">📁</span> Catégories
             </a>
-            <a href="#" class="nav-item">
+            <a href="{{ route('admin.marques.index') }}" class="nav-item {{ request()->routeIs('admin.marques.*') ? 'active' : '' }}">
                 <span class="nav-icon">🏷️</span> Marques
+            </a>
+            <a href="{{ route('admin.voitures.index') }}" class="nav-item {{ request()->routeIs('admin.voitures.*') ? 'active' : '' }}">
+                <span class="nav-icon">🚗</span> Voitures
+            </a>
+            <a href="{{ route('admin.references.index') }}" class="nav-item {{ request()->routeIs('admin.references.*') ? 'active' : '' }}">
+                <span class="nav-icon">📋</span> Références
             </a>
 
             <div class="nav-section-title">Commandes</div>

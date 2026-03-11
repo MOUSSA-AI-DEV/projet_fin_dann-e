@@ -9,6 +9,7 @@ class Piece extends Model
     protected $fillable = [
         'nom',
         'slug',
+        'reference_oem',
         'reference_fournisseur',
         'prix',
         'stock',

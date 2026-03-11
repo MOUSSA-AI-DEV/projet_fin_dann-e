@@ -15,8 +15,8 @@ class Voiture extends Model
         'immatriculation_type'
     ];
 
-    public function reference()
+    public function references()
     {
-        return $this->belongsToMany(Reference::class, 'reference_id');
+        return $this->belongsToMany(Reference::class, 'reference_voiture');
     }
 }
