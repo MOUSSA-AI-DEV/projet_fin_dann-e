@@ -18,6 +18,7 @@
             <table style="width: 100%; border-collapse: collapse; text-align: left;">
                 <thead>
                     <tr style="border-bottom: 2px solid #f1f5f9;">
+                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">ID</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Nom</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Parent</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Position</th>
@@ -28,6 +29,7 @@
                 <tbody>
                     @foreach($categories as $category)
                         <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
+                            <td style="padding: 1rem; font-weight: 600; color: #64748b;">#{{ $category->id }}</td>
                             <td style="padding: 1rem; font-weight: 500;">{{ $category->nom }}</td>
                             <td style="padding: 1rem; color: #64748b;">{{ $category->parent ? $category->parent->nom : '-' }}</td>
                             <td style="padding: 1rem;">{{ $category->position }}</td>

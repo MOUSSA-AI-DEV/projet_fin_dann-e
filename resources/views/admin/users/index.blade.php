@@ -20,6 +20,7 @@
             <table style="width: 100%; border-collapse: collapse; text-align: left;">
                 <thead>
                     <tr style="border-bottom: 2px solid #f1f5f9;">
+                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">ID</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Nom / Prénom</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Email</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Rôle</th>
@@ -30,6 +31,7 @@
                 <tbody>
                     @foreach($users as $user)
                         <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
+                            <td style="padding: 1rem; font-weight: 600; color: #64748b;">#{{ $user->id }}</td>
                             <td style="padding: 1rem; font-weight: 500;">{{ $user->nom }} {{ $user->prenom }}</td>
                             <td style="padding: 1rem; color: #475569;">{{ $user->email }}</td>
                             <td style="padding: 1rem;">
