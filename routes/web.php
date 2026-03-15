@@ -2,6 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminUserController;
+use \App\Http\Controllers\Admin\DashboardController;
+use \App\Http\Controllers\Admin\MarqueController;
+use \App\Http\Controllers\Admin\CategoryController;
+use \App\Http\Controllers\Admin\PieceController;
+use \App\Http\Controllers\Admin\ReferenceController;
+use \App\Http\Controllers\Admin\VoitureController;
+use \App\Http\Controllers\Admin\ReferenceVoitureController;     
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,21 +31,19 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::middleware('role:admin')->group(function () {
-        Route::get('/admin', function () {
-            return 'Panel Administrateur';
-        })->name('admin.dashboard');
+        Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('users', AdminUserController::class);
             Route::patch('users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
             
-            Route::resource('marques', \App\Http\Controllers\Admin\MarqueController::class);
-            Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
-            Route::resource('pieces', \App\Http\Controllers\Admin\PieceController::class);
-            Route::resource('references', \App\Http\Controllers\Admin\ReferenceController::class);
-            Route::resource('voitures', \App\Http\Controllers\Admin\VoitureController::class);
-            Route::post('references/{reference}/voitures', [\App\Http\Controllers\Admin\ReferenceVoitureController::class, 'attachVoiture'])->name('references.voitures.attach');
-            Route::delete('references/{reference}/voitures/{voiture}', [\App\Http\Controllers\Admin\ReferenceVoitureController::class, 'detachVoiture'])->name('references.voitures.detach');
+            Route::resource('marques',MarqueController::class);
+            Route::resource('categories', CategoryController::class);
+            Route::resource('pieces', PieceController::class);
+            Route::resource('references', ReferenceController::class);
+            Route::resource('voitures', VoitureController::class);
+            Route::post('references/{reference}/voitures', [ReferenceVoitureController::class, 'attachVoiture'])->name('references.voitures.attach');
+            Route::delete('references/{reference}/voitures/{voiture}', [ReferenceVoitureController::class, 'detachVoiture'])->name('references.voitures.detach');
         });
     });
 });
