@@ -1,0 +1,4 @@
+id,nom,prenom,email,telephone,password,role,email_verified_at,adresse_livraison,code_postal,ville,is_active,remember_token,created_at,updated_at
+1,Dupont,Jean,jean.dupont@email.com,0612345678,"$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",user,2026-03-01 10:00:00,"12 rue des Lilas",75015,Paris,1,null,2026-01-01 10:00:00,2026-03-01 10:00:00
+2,Admin,Super,admin@piecesauto.com,null,"$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",admin,2026-01-01 10:00:00,null,null,null,1,null,2026-01-01 10:00:00,2026-01-01 10:00:00
+3,Martin,Pierre,pierre.martin@email.com,0623456789,"$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",garage,2026-02-15 14:30:00,"Garage Martin, 45 av. Victor Hugo",69006,Lyon,1,null,2026-02-01 09:00:00,2026-02-15 14:30:00

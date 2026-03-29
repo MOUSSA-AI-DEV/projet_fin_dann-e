@@ -1,0 +1,6 @@
+id,reference,nom,slug,piece_id,description,garantie,is_active,position,stock,prix,created_at,updated_at
+100,"21104737R","Manifold refroidissement","manifold-refroidissement",4,"Collecteur eau 1.5 dCi","2 ans",1,1,12,89.50,2026-03-29 20:20:00,2026-03-29 20:20:00
+10,"770123456R","Disque OEM Renault","disque-oem-renault",1,"OEM neuf Clio IV",1,1,10,25,45.50,2026-03-29 21:00:00,2026-03-29 21:00:00
+11,"0-986-424-512","Disque Bosch officiel","disque-bosch-officiel",1,"Référence Bosch France",1,1,11,35,44.90,2026-03-29 21:00:00,2026-03-29 21:00:00
+12,"4103411","Disque Bosch aftermarket","disque-bosch-aftermarket",1,"Série Bosch 2024",1,1,12,18,42.90,2026-03-29 21:00:00,2026-03-29 21:00:00
+13,"D158034","Disque TRW compatible","disque-trw-compatible",1,"Équivalent qualité OEM",1,1,13,12,39.80,2026-03-29 21:00:00,2026-03-29 21:00:00
