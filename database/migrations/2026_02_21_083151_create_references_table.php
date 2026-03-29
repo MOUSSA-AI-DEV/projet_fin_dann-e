@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->string('garantie', 50)->nullable();
             $table->boolean('is_active')->default(true);
             $table->integer('position')->default(0);
+            $table->integer('stock')->default(0);
+            $table->decimal('prix', 8, 2)->nullable();
             $table->timestamps();
 
             $table->index(['piece_id', 'is_active']);

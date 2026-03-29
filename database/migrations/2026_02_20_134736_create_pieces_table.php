@@ -10,10 +10,8 @@ return new class extends Migration {
             $table->id();
             $table->string('nom', 150);
             $table->string('slug', 150)->unique();
-            $table->string('reference_oem', 50)->unique();
             $table->string('reference_fournisseur', 50)->nullable();
             $table->decimal('prix', 10, 2);
-            $table->unsignedInteger('stock')->default(0);
             $table->text('description')->nullable();
             $table->json('caracteristiques')->nullable();
             $table->json('images')->nullable();
@@ -27,8 +25,7 @@ return new class extends Migration {
 
             // Index performance critique
             $table->index(['marque_id', 'categorie_id']);
-            $table->index('reference_oem');
-            $table->index(['is_visible', 'stock']);
+            $table->index('is_visible');
         });
     }
 
