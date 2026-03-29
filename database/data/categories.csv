@@ -1,0 +1,5 @@
+id,nom,slug,parent_id,description,image_url,position,is_active,created_at,updated_at
+1,Freinage,freinage,NULL,"Système de freinage",cat/freinage.jpg,1,1,2026-01-01 10:00:00,2026-01-01 10:00:00
+2,Disques,disques,1,"Disques de frein",cat/disques.jpg,1,1,2026-01-01 10:00:00,2026-01-01 10:00:00
+3,Filtration,filtration,NULL,"Filtres moteur",cat/filtration.jpg,2,1,2026-01-01 10:00:00,2026-01-01 10:00:00
+4,Distribution,distribution,NULL,"Kits distribution",cat/distribution.jpg,3,1,2026-01-01 10:00:00,2026-01-01 10:00:00

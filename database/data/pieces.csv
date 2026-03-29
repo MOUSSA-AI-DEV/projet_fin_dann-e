@@ -1,0 +1,10 @@
+id,nom,slug,reference_fournisseur,prix,description,caracteristiques,images,categorie_id,marque_id,is_visible,position,created_at,updated_at
+1,"Disque frein AV Bosch","disque-frein-av-bosch","0-986-424-512",45.50,"Disque ventilé AV Clio IV","{""diametre"":280,""percage"":""5x108""}","[""img/disque1.jpg"",""img/disque2.jpg""]",2,1,1,1,2026-01-01 10:00:00,2026-01-01 10:00:00
+2,"Plaquettes AV Bosch","plaquettes-av-bosch","FDB411",22.90,"Plaquettes céramique AV",NULL,"[""img/plaquettes1.jpg""]",2,1,1,2,2026-01-01 10:00:00,2026-01-01 10:00:00
+3,"Filtre huile Mann","filtre-huile-mann","MF456A",12.90,"Filtre premium 206",NULL,"[""img/filtre1.jpg""]",3,3,1,1,2026-01-01 10:00:00,2026-01-01 10:00:00
+4,"Manifold refroidissement","manifold-refroidissement","RENAULT",89.50,"Collecteur d'admission eau 1.5 dCi","{""type"":""refroidissement"",""materiau"":""plastique""}","[""img/21104737R.jpg""]",1,1,1,4,2026-03-29 19:30:00,2026-03-29 19:30:00
+5,"Kit Distribution 206","kit-distribution-206","RENAULT",156.80,"Courroie + Pompe à eau 1.4 essence","{""courroie_longueur"":1112,""pompe"":true}","[""img/kit-distri-206.jpg""]",4,1,1,5,2026-03-29 19:30:00,2026-03-29 19:30:00
+6,"Thermostat 82°C","thermostat-82c","RENAULT",35.90,"Thermostat Clio IV 1.5 dCi","{""temperature"":82,""materiau"":""laiton""}","[""img/7701479347.jpg""]",1,1,1,6,2026-03-29 19:30:00,2026-03-29 19:30:00
+7,"Durite radiateur AV","durite-radiateur-av","RENAULT",18.50,"Tuyau supérieur radiateur","{""diametre"":32,""longueur"":450}","[""img/210113625R.jpg""]",1,1,1,7,2026-03-29 19:30:00,2026-03-29 19:30:00
+8,"Pompe à eau K9K","pompe-eau-k9k","RENAULT",98.20,"Pompe mécanique 1.5 dCi","{""type"":""mecanique"",""debit"":65}","[""img/210836388R.jpg""]",1,1,1,8,2026-03-29 19:30:00,2026-03-29 19:30:00
+9,"Radiateur huile/eau","radiateur-huile-eau","RENAULT",156.00,"Échangeur huile/eau K9K","{""type"":""huile-eau"",""puissance"":25}","[""img/214100598R.jpg""]",1,1,1,9,2026-03-29 19:30:00,2026-03-29 19:30:00
