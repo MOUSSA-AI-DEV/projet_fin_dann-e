@@ -28,10 +28,8 @@ class PieceController extends Controller
     {
         $validated = $request->validate([
             'nom' => 'required|string|max:150',
-            'reference_oem' => 'required|string|max:50|unique:pieces,reference_oem',
             'reference_fournisseur' => 'nullable|string|max:50',
             'prix' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'categorie_id' => 'required|exists:categories,id',
             'marque_id' => 'required|exists:marques,id',
@@ -69,10 +67,8 @@ class PieceController extends Controller
     {
         $validated = $request->validate([
             'nom' => 'required|string|max:150',
-            'reference_oem' => 'required|string|max:50|unique:pieces,reference_oem,' . $piece->id,
             'reference_fournisseur' => 'nullable|string|max:50',
             'prix' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'categorie_id' => 'required|exists:categories,id',
             'marque_id' => 'required|exists:marques,id',

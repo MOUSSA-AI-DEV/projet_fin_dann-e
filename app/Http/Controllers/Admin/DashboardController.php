@@ -48,8 +48,8 @@ class DashboardController extends Controller
             ->where('commandes.created_at', '>=', now()->subDays(30))
             ->sum('commande_references.total_ligne');
 
-        // 3. Pièces en stock critique (< 50)
-        $piecesStockCritique = Piece::where('stock', '<', 50)->get();
+        // 3. Références en stock critique (< 50)
+        $piecesStockCritique = Reference::where('stock', '<', 50)->get();
         $countStockCritique = $piecesStockCritique->count();
         
         // 4. Nouveaux utilisateurs de ces 30 derniers jours

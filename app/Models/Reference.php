@@ -14,11 +14,14 @@ class Reference extends Model
         'description',
         'garantie',
         'is_active',
-        'position'
+        'position',
+        'stock',
+        'prix'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'prix' => 'float',
     ];
 
     public function piece()
