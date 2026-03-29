@@ -10,22 +10,16 @@
         <form action="{{ route('admin.pieces.store') }}" method="POST">
             @csrf
 
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div style="margin-bottom: 1.5rem;">
                 <div>
                     <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Nom de la pièce</label>
                     <input type="text" name="nom" value="{{ old('nom') }}" required
                            style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
                     @error('nom') <span style="color: #ef4444; font-size: 0.75rem;">{{ $message }}</span> @enderror
                 </div>
-                <div>
-                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Référence OEM</label>
-                    <input type="text" name="reference_oem" value="{{ old('reference_oem') }}" required
-                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
-                    @error('reference_oem') <span style="color: #ef4444; font-size: 0.75rem;">{{ $message }}</span> @enderror
-                </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                 <div>
                     <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Réf. Fournisseur</label>
                     <input type="text" name="reference_fournisseur" value="{{ old('reference_fournisseur') }}"
@@ -34,11 +28,6 @@
                 <div>
                     <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Prix (€)</label>
                     <input type="number" step="0.01" name="prix" value="{{ old('prix') }}" required
-                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
-                </div>
-                <div>
-                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Stock Initial</label>
-                    <input type="number" name="stock" value="{{ old('stock', '0') }}" required
                            style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
                 </div>
             </div>

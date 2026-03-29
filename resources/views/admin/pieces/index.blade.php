@@ -2,8 +2,7 @@
     @section('page-title', 'Gestion des Pièces')
 
     <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <h3 style="font-size: 1.1rem; font-weight: 600; color: #1e293b;">Liste des Pièces</h3>
+        <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1.5rem;">
             <div style="display: flex; gap: 1rem; align-items: center;">
                 @if(session('success'))
                     <div style="background: #dcfce7; color: #166534; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem;">
@@ -19,11 +18,10 @@
                 <thead>
                     <tr style="border-bottom: 2px solid #f1f5f9;">
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">ID</th>
-                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Nom / OEM</th>
+                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Nom</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Catégorie</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Marque</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Prix</th>
-                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Stock</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Statut</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase; text-align: right;">Actions</th>
                     </tr>
@@ -33,17 +31,11 @@
                         <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
                             <td style="padding: 1rem; font-weight: 600; color: #64748b;">#{{ $piece->id }}</td>
                             <td style="padding: 1rem;">
-                                <div style="font-weight: 500;">{{ $piece->nom }}</div>
-                                <div style="font-size: 0.75rem; color: #64748b;">OEM: {{ $piece->reference_oem }}</div>
+                                <div style="font-weight: 600; color: #1e293b;">{{ $piece->marque->nom }} - {{ $piece->nom }}</div>
                             </td>
                             <td style="padding: 1rem; color: #475569;">{{ $piece->category->nom }}</td>
                             <td style="padding: 1rem; color: #475569;">{{ $piece->marque->nom }}</td>
                             <td style="padding: 1rem; font-weight: 600;">{{ number_format($piece->prix, 2) }} €</td>
-                            <td style="padding: 1rem;">
-                                <span style="font-weight: 500; color: {{ $piece->stock > 5 ? '#166534' : '#991b1b' }}">
-                                    {{ $piece->stock }}
-                                </span>
-                            </td>
                             <td style="padding: 1rem;">
                                 @if($piece->is_visible)
                                     <span style="color: #166534; background: #dcfce7; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">Visible</span>

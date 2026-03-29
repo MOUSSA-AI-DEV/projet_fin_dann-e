@@ -22,6 +22,8 @@
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Code / Nom</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Piéce Associée</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Voitures Compatibles</th>
+                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Stock</th>
+                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Prix</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Garantie</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Statut</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase; text-align: right;">Actions</th>
@@ -45,6 +47,8 @@
                                     <span style="color: #94a3b8; font-size: 0.75rem;">Aucune</span>
                                 @endif
                             </td>
+                            <td style="padding: 1rem; font-weight: 600; color: {{ $reference->stock > 5 ? '#166534' : '#991b1b' }}">{{ $reference->stock }}</td>
+                            <td style="padding: 1rem; font-weight: 600;">{{ number_format($reference->prix, 2) }} €</td>
                             <td style="padding: 1rem;">{{ $reference->garantie ?? '-' }}</td>
                             <td style="padding: 1rem;">
                                 @if($reference->is_active)

@@ -13,15 +13,10 @@
                 </div>
                 <div style="text-align: right;">
                     <div style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">{{ number_format($piece->prix, 2) }} €</div>
-                    <div style="font-size: 0.875rem; color: {{ $piece->stock > 5 ? '#166534' : '#991b1b' }}; font-weight: 600;">Stock: {{ $piece->stock }}</div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; padding: 1.5rem; background: #f8fafc; border-radius: 8px; margin-bottom: 2rem;">
-                <div>
-                    <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.25rem;">Référence OEM</div>
-                    <div style="font-weight: 600; color: #1e293b;">{{ $piece->reference_oem }}</div>
-                </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 1.5rem; background: #f8fafc; border-radius: 8px; margin-bottom: 2rem;">
                 <div>
                     <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.25rem;">Réf. Fournisseur</div>
                     <div style="font-weight: 600; color: #1e293b;">{{ $piece->reference_fournisseur ?: '-' }}</div>
@@ -56,6 +51,10 @@
                                 <div>
                                     <span style="font-weight: 700; color: #1e293b; font-size: 1.1rem;">{{ $reference->reference }}</span>
                                     <span style="font-size: 0.85rem; color: #64748b; margin-left: 0.5rem;">- {{ $reference->nom }}</span>
+                                    <div style="font-size: 0.9rem; margin-top: 0.25rem;">
+                                        <span style="font-weight: 600; color: #2563eb;">{{ number_format($reference->prix, 2) }} €</span>
+                                        <span style="margin-left: 1rem; font-weight: 600; color: {{ $reference->stock > 5 ? '#166534' : '#991b1b' }};">Stock: {{ $reference->stock }}</span>
+                                    </div>
                                 </div>
                                 <div style="display: flex; gap: 0.5rem;">
                                     <a href="{{ route('admin.references.show', $reference) }}" style="padding: 4px 10px; font-size: 0.75rem; color: #475569; background: #f1f5f9; border-radius: 4px; text-decoration: none;">Voir</a>
