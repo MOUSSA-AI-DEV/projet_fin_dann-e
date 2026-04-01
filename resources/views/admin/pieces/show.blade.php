@@ -35,6 +35,39 @@
                 <h4 style="font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; text-transform: uppercase;">Description</h4>
                 <div style="color: #475569; line-height: 1.6;">{{ $piece->description ?: 'Aucune description.' }}</div>
             </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; border-top: 1px solid #f1f5f9; pt: 2rem; padding-top: 2rem;">
+                <div>
+                    <h4 style="font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; text-transform: uppercase;">Spécifications Techniques</h4>
+                    @if($piece->caracteristiques && count($piece->caracteristiques) > 0)
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 0.5rem;">
+                            @foreach($piece->caracteristiques as $key => $value)
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: #f8fafc; border-radius: 4px;">
+                                    <span style="font-size: 0.8rem; color: #64748b; font-weight: 600;">{{ ucfirst(str_replace('_', ' ', $key)) }}</span>
+                                    <span style="font-size: 0.8rem; color: #1e293b; font-weight: 700;">{{ is_bool($value) ? ($value ? 'Oui' : 'Non') : $value }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div style="font-size: 0.8rem; color: #94a3b8; font-style: italic;">Aucune spécification technique disponible.</div>
+                    @endif
+                </div>
+
+                <div>
+                    <h4 style="font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; text-transform: uppercase;">Galerie Photos</h4>
+                    @if($piece->images && count($piece->images) > 0)
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.75rem;">
+                            @foreach($piece->images as $image)
+                                <div style="aspect-ratio: 1; border-radius: 6px; overflow: hidden; border: 1px solid #e2e8f0;">
+                                    <img src="{{ asset($image) }}" alt="Photo de la pièce" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div style="font-size: 0.8rem; color: #94a3b8; font-style: italic;">Aucune photo disponible.</div>
+                    @endif
+                </div>
+            </div>
         </div>
 
         <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
@@ -65,11 +98,24 @@
                             <div>
                                 <div style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem;">Voitures Compatibles</div>
                                 @if($reference->voitures->count() > 0)
-                                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
                                         @foreach($reference->voitures as $voiture)
-                                            <span style="font-size: 0.75rem; background: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 20px; font-weight: 600;">
-                                                {{ $voiture->marque }} {{ $voiture->modele }} ({{ $voiture->annee_debut }})
-                                            </span>
+                                            <div style="display: flex; gap: 0.75rem; background: #f8fafc; padding: 0.75rem; border-radius: 6px; border: 1px solid #f1f5f9;">
+                                                @if($voiture->images && isset($voiture->images[0]))
+                                                    <div style="width: 50px; height: 50px; border-radius: 4px; overflow: hidden; flex-shrink: 0;">
+                                                        <img src="{{ asset($voiture->images[0]) }}" alt="Photo voiture" style="width: 100%; height: 100%; object-fit: cover;">
+                                                    </div>
+                                                @endif
+                                                <div>
+                                                    <div style="font-size: 0.82rem; font-weight: 700; color: #2563eb;">{{ $voiture->marque }} {{ $voiture->modele }} ({{ $voiture->annee_debut }})</div>
+                                                    <div style="font-size: 0.72rem; color: #64748b;">
+                                                        {{ $voiture->motorisation }} - {{ $voiture->puissance }}ch 
+                                                        @if($voiture->caracteristiques && isset($voiture->caracteristiques['carburant']))
+                                                            | {{ $voiture->caracteristiques['carburant'] }}
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </div>
                                 @else

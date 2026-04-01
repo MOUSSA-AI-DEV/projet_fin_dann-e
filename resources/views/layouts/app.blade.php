@@ -10,13 +10,13 @@
 
         :root {
             --sidebar-width: 260px;
-            --sidebar-bg: #0f172a;
-            --sidebar-hover: #1e293b;
-            --sidebar-active: #2563eb;
-            --sidebar-text: #94a3b8;
-            --sidebar-text-active: #f8fafc;
+            --sidebar-bg: #000000;
+            --sidebar-hover: #262626;
+            --sidebar-active: #ffffff;
+            --sidebar-text: #a3a3a3;
+            --sidebar-text-active: #000000;
             --topbar-height: 60px;
-            --accent: #2563eb;
+            --accent: #ffffff;
         }
 
         body {
@@ -45,15 +45,15 @@
             display: flex;
             align-items: center;
             padding: 0 1.5rem;
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid #262626;
             gap: 0.75rem;
         }
         .sidebar-logo .logo-icon {
             width: 36px; height: 36px;
-            background: var(--accent);
-            border-radius: 8px;
+            background: #ffffff;
+            border-radius: 4px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: bold; font-size: 1.1rem;
+            color: #000000; font-weight: 800; font-size: 1.2rem;
             flex-shrink: 0;
         }
         .sidebar-logo span {
@@ -66,9 +66,9 @@
         .sidebar-nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
 
         .nav-section-title {
-            color: #475569;
+            color: #525252;
             font-size: 0.7rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             padding: 0.75rem 1.5rem 0.4rem;
@@ -92,9 +92,9 @@
             color: var(--sidebar-text-active);
         }
         .nav-item.active {
-            background: rgba(37,99,235,0.15);
-            color: #60a5fa;
-            border-right: 3px solid var(--accent);
+            background: #ffffff;
+            color: #000000;
+            font-weight: 700;
         }
         .nav-item .nav-icon {
             font-size: 1.1rem;
@@ -104,16 +104,16 @@
         }
         .nav-badge {
             margin-left: auto;
-            background: var(--accent);
-            color: white;
+            background: #ffffff;
+            color: #000000;
             font-size: 0.7rem;
             padding: 0.1rem 0.45rem;
-            border-radius: 99px;
-            font-weight: 700;
+            border-radius: 4px;
+            font-weight: 800;
         }
 
         .sidebar-footer {
-            border-top: 1px solid #1e293b;
+            border-top: 1px solid #262626;
             padding: 1rem 1.5rem;
         }
         .sidebar-user {
@@ -124,20 +124,22 @@
         }
         .avatar {
             width: 36px; height: 36px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 50%;
+            background: #ffffff;
+            border-radius: 4px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: bold; font-size: 0.85rem;
+            color: #000000; font-weight: 800; font-size: 0.85rem;
             flex-shrink: 0;
+            border: 1px solid #ccc;
         }
         .user-info .user-name { color: #f8fafc; font-size: 0.875rem; font-weight: 600; }
         .user-info .user-role {
-            color: #475569; font-size: 0.73rem;
-            background: #1e293b; padding: 1px 8px;
-            border-radius: 99px; display: inline-block; margin-top: 2px;
+            color: #d4d4d4; font-size: 0.73rem;
+            background: #262626; padding: 1px 8px;
+            border-radius: 4px; display: inline-block; margin-top: 2px;
+            text-transform: uppercase; font-weight: 700;
         }
-        .user-info .user-role.admin { background: rgba(37,99,235,0.2); color: #60a5fa; }
-        .user-info .user-role.garage { background: rgba(16,185,129,0.2); color: #34d399; }
+        .user-info .user-role.admin { background: #404040; color: #ffffff; }
+        .user-info .user-role.garage { background: #404040; color: #ffffff; }
 
         .btn-logout {
             display: flex; align-items: center; gap: 0.5rem;

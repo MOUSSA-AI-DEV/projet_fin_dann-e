@@ -18,7 +18,7 @@
             <table style="width: 100%; border-collapse: collapse; text-align: left;">
                 <thead>
                     <tr style="border-bottom: 2px solid #f1f5f9;">
-                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">ID</th>
+                        <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Photo</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Marque / Modèle</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Année</th>
                         <th style="padding: 1rem; color: #64748b; font-size: 0.8rem; text-transform: uppercase;">Motorisation / Puissance</th>
@@ -29,7 +29,17 @@
                 <tbody>
                     @foreach($voitures as $voiture)
                         <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
-                            <td style="padding: 1rem; font-weight: 600; color: #64748b;">#{{ $voiture->id }}</td>
+                            <td style="padding: 1rem;">
+                                @if($voiture->images && isset($voiture->images[0]))
+                                    <div style="width: 60px; height: 40px; border-radius: 4px; overflow: hidden; background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                        <img src="{{ asset($voiture->images[0]) }}" alt="Photo voiture" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                @else
+                                    <div style="width: 60px; height: 40px; border-radius: 4px; background: #f8fafc; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: #94a3b8;">
+                                        N/A
+                                    </div>
+                                @endif
+                            </td>
                             <td style="padding: 1rem;">
                                 <div style="font-weight: 500;">{{ $voiture->marque }}</div>
                                 <div style="font-size: 0.75rem; color: #64748b;">{{ $voiture->modele }}</div>
