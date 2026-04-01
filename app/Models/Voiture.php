@@ -12,7 +12,14 @@ class Voiture extends Model
         'annee_debut',
         'motorisation',
         'puissance',
-        'immatriculation_type'
+        'immatriculation_type',
+        'caracteristiques',
+        'images'
+    ];
+
+    protected $casts = [
+        'caracteristiques' => 'array',
+        'images' => 'array',
     ];
 
     public function references()

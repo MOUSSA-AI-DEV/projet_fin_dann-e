@@ -1,4 +1,4 @@
-id,marque,modele,annee_debut,motorisation,puissance,immatriculation_type,created_at,updated_at
-1,Renault,Clio IV,2015,1.5 dCi,90,VP,2026-01-01 10:00:00,2026-01-01 10:00:00
-2,Peugeot,206,2003,1.4 essence,75,VP,2026-01-01 10:00:00,2026-01-01 10:00:00
-3,Renault,Megane III,2012,1.6 dCi,130,VP,2026-01-01 10:00:00,2026-01-01 10:00:00
+id,marque,modele,annee_debut,motorisation,puissance,immatriculation_type,caracteristiques,images,created_at,updated_at
+1,Renault,Clio IV,2015,1.5 dCi,90,VP,"{""cylindree"":""1461 cm3"",""carburant"":""Diesel"",""portes"":5}","[""img/clio4.jpg""]",2026-01-01 10:00:00,2026-01-01 10:00:00
+2,Peugeot,206,2003,1.4 essence,75,VP,"{""cylindree"":""1360 cm3"",""carburant"":""Essence"",""portes"":3}","[""img/peugeot206.jpg""]",2026-01-01 10:00:00,2026-01-01 10:00:00
+3,Renault,Megane III,2012,1.6 dCi,130,VP,"{""cylindree"":""1598 cm3"",""carburant"":""Diesel"",""portes"":5}","[""img/megane3.jpg""]",2026-01-01 10:00:00,2026-01-01 10:00:00

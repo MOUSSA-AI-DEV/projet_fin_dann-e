@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('motorisation', 50);
             $table->unsignedInteger('puissance');
             $table->string('immatriculation_type', 20)->nullable();
+            $table->json('caracteristiques')->nullable();
+            $table->json('images')->nullable();
             $table->timestamps();
             $table->index(['marque', 'modele']);
       
