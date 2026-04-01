@@ -11,11 +11,35 @@ use Illuminate\Support\Str;
 
 class ReferenceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $references = Reference::with(['piece', 'voitures'])->latest()->paginate(10);
-        return view('admin.references.index', compact('references'));
+        $search = trim($request->input('search', ''));
+
+        $query = Reference::with(['piece', 'voitures'])
+            ->when($search !== '', function ($q) use ($search) {
+                $q->where(function ($inner) use ($search) {
+                    $inner->where('reference', 'like', "%{$search}%")
+                          ->orWhere('nom', 'like', "%{$search}%")
+                          ->orWhereHas('piece', fn($q2) =>
+                              $q2->where('nom', 'like', "%{$search}%")
+                          )
+                          ->orWhereHas('voitures', fn($q3) =>
+                              $q3->where('marque', 'like', "%{$search}%")
+                                 ->orWhere('modele', 'like', "%{$search}%")
+                          );
+                });
+            })
+            ->latest();
+
+        $references = $query->paginate(15)->appends(['search' => $search]);
+
+        if ($request->ajax()) {
+            return view('admin.references._table', compact('references', 'search'))->render();
+        }
+
+        return view('admin.references.index', compact('references', 'search'));
     }
+
 
     public function create()
     {

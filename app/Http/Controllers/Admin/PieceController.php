@@ -11,10 +11,28 @@ use Illuminate\Support\Str;
 
 class PieceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pieces = Piece::with(['category', 'marque'])->latest()->paginate(10);
-        return view('admin.pieces.index', compact('pieces'));
+        $search = trim($request->input('search', ''));
+
+        $query = Piece::with(['category', 'marque'])
+            ->when($search !== '', function ($q) use ($search) {
+                $q->where(function ($inner) use ($search) {
+                    $inner->where('nom', 'like', "%{$search}%")
+                        ->orWhere('reference_fournisseur', 'like', "%{$search}%")
+                        ->orWhereHas('category', fn($q2) => $q2->where('nom', 'like', "%{$search}%"))
+                        ->orWhereHas('marque', fn($q3) => $q3->where('nom', 'like', "%{$search}%"));
+                });
+            })
+            ->latest();
+
+        $pieces = $query->paginate(15)->appends(['search' => $search]);
+
+        if ($request->ajax()) {
+            return view('admin.pieces._table', compact('pieces', 'search'))->render();
+        }
+
+        return view('admin.pieces.index', compact('pieces', 'search'));
     }
 
     public function create()
