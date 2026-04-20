@@ -7,7 +7,7 @@
             <a href="{{ route('admin.references.index') }}" style="color: #64748b; text-decoration: none; font-size: 0.875rem;">← Retour</a>
         </div>
 
-        <form action="{{ route('admin.references.store') }}" method="POST">
+        <form action="{{ route('admin.references.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
@@ -40,10 +40,30 @@
                 </div>
             </div>
 
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Prix (€)</label>
+                    <input type="number" step="0.01" name="prix" value="{{ old('prix') }}" placeholder="0.00"
+                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Stock Initial</label>
+                    <input type="number" name="stock" value="{{ old('stock', 0) }}"
+                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                </div>
+            </div>
+
             <div style="margin-bottom: 1.5rem;">
                 <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Description</label>
                 <textarea name="description" rows="3" 
                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">{{ old('description') }}</textarea>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Images du produit</label>
+                <input type="file" name="images[]" multiple accept="image/*"
+                       style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; background: white;">
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 0.3rem;">Vous pouvez sélectionner plusieurs images.</p>
             </div>
 
             <div style="margin-bottom: 1.5rem;">

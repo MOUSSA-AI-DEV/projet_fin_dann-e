@@ -7,7 +7,7 @@
             <a href="{{ route('admin.references.index') }}" style="color: #64748b; text-decoration: none; font-size: 0.875rem;">← Retour</a>
         </div>
 
-        <form action="{{ route('admin.references.update', $reference) }}" method="POST">
+        <form action="{{ route('admin.references.update', $reference) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -40,10 +40,45 @@
                 </div>
             </div>
 
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Prix (€)</label>
+                    <input type="number" step="0.01" name="prix" value="{{ old('prix', $reference->prix) }}" placeholder="0.00"
+                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Stock Actuel</label>
+                    <input type="number" name="stock" value="{{ old('stock', $reference->stock) }}"
+                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                </div>
+            </div>
+
             <div style="margin-bottom: 1.5rem;">
                 <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Description</label>
                 <textarea name="description" rows="3" 
                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">{{ old('description', $reference->description) }}</textarea>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Images du produit</label>
+                
+                @if($reference->images && count($reference->images) > 0)
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 1rem; margin-bottom: 1rem; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        @foreach($reference->images as $image)
+                            <div style="position: relative; aspect-ratio: 1; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden; background: white;">
+                                <img src="{{ asset('storage/' . $image) }}" style="width: 100%; height: 100%; object-fit: contain;">
+                                <div style="position: absolute; top: 0; right: 0; background: rgba(239, 68, 68, 0.9); padding: 2px;">
+                                    <input type="checkbox" name="delete_images[]" value="{{ $image }}" title="Supprimer cette image">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <p style="font-size: 0.75rem; color: #ef4444; margin-bottom: 1rem;">Cochez une image pour la supprimer lors de l'enregistrement.</p>
+                @endif
+
+                <input type="file" name="images[]" multiple accept="image/*"
+                       style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; background: white;">
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 0.3rem;">Ajouter de nouvelles images.</p>
             </div>
 
             <div style="margin-bottom: 1.5rem;">

@@ -24,6 +24,19 @@
                 <div style="color: #475569; line-height: 1.6;">{{ $reference->description ?: 'Aucune description disponible.' }}</div>
             </div>
 
+            @if($reference->images && count($reference->images) > 0)
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 1rem;">Images Galerie</label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
+                        @foreach($reference->images as $image)
+                            <div style="aspect-ratio: 1; border-radius: 8px; border: 1px solid #f1f5f9; overflow: hidden; background: white; cursor: pointer;">
+                                <img src="{{ asset('storage/' . $image) }}" style="width: 100%; height: 100%; object-fit: contain;">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             <div>
                 <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 1rem;">Voitures Compatibles ({{ $reference->voitures->count() }})</label>
                 @if($reference->voitures->count() > 0)
