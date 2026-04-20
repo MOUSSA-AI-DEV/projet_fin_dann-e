@@ -14,11 +14,19 @@ class Command extends Model
         'payment_method',
         'payment_id',
         'facture_pdf',
-        'notes_client'
+        'notes_client',
+        'total',
+        'statut'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function references()
+    {
+        
+        return $this->hasMany(CommandeReference::class, 'commande_id');
     }
 }
