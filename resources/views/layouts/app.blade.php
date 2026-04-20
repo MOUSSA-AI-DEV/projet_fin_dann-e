@@ -211,17 +211,14 @@
         <nav class="sidebar-nav">
             <div class="nav-section-title">Principal</div>
 
-            <a href="{{ route('dashboard') }}"
-               class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}"
+               class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <span class="nav-icon">🏠</span> Dashboard
             </a>
 
             @if(Auth::user()->role === 'admin')
             <div class="nav-section-title">Administration</div>
 
-            <a href="{{ route('admin.dashboard') }}" class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <span class="nav-icon">⚙️</span> Panel Admin
-            </a>
 
             <a href="{{ route('admin.users.index') }}" class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                 <span class="nav-icon">👥</span> Utilisateurs
@@ -246,11 +243,10 @@
                 <span class="nav-icon">📋</span> Références
             </a>
 
-            <div class="nav-section-title">Commandes</div>
+            <div class="nav-section-title">Ventes & Commandes</div>
 
-            <a href="#" class="nav-item">
+            <a href="{{ route('admin.commandes.index') }}" class="nav-item {{ request()->routeIs('admin.commandes.*') ? 'active' : '' }}">
                 <span class="nav-icon">📦</span> Commandes
-                <span class="nav-badge">0</span>
             </a>
         </nav>
 
@@ -287,6 +283,28 @@
         </header>
 
         <main class="page-content">
+            @if(session('success'))
+                <div style="background: #dcfce7; color: #166534; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #bbf7d0; font-weight: 600;">
+                    ✅ {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div style="background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #fecaca; font-weight: 600;">
+                    ❌ {{ session('error') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div style="background: #fff1f2; color: #be123c; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #fecdd3;">
+                    <ul style="margin: 0; padding-left: 1.5rem;">
+                        @foreach($errors->all() as $error)
+                            <li style="font-weight: 600;">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             {{ $slot }}
         </main>
     </div>
