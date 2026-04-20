@@ -34,7 +34,6 @@ class CategoryController extends Controller
 
         $validated['slug'] = Str::slug($validated['nom']);
         
-        // Ensure slug is unique
         $slug = $validated['slug'];
         $count = 1;
         while (Category::where('slug', $slug)->exists()) {
@@ -44,7 +43,7 @@ class CategoryController extends Controller
 
         Category::create($validated);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Catégorie créée avec succès.');
+        return redirect()->route('admin.categories.index')->with('success', 'cree avec succes.');
     }
 
     public function show(Category $category)

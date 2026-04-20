@@ -33,12 +33,13 @@ class AuthController extends Controller
             }
 
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin');
+            }
+            return redirect()->intended('/');
         }
 
-        throw ValidationException::withMessages([
-            'email' => __('auth.failed'),
-        ]);
+       
     }
 
     public function showRegisterForm()
@@ -76,7 +77,10 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        if ($role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect('/');
     }
 
     public function logout(Request $request)

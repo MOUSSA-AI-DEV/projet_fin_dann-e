@@ -7,34 +7,24 @@ use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
 {
-    /**
-     * Display a listing of the users.
-     */
+   
     public function index()
     {
         $users = User::where('role', '!=', 'admin')->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
-    /**
-     * Display the specified user.
-     */
+  
     public function show(User $user)
     {
         return view('admin.users.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified user.
-     */
     public function edit(User $user)
     {
         return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified user in storage.
-     */
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
@@ -50,16 +40,14 @@ class AdminUserController extends Controller
 
         $user->update($validated);
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès.');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis a jour avec succès.');
     }
 
-    /**
-     * Toggle the active status of the user (Ban/Unban).
-     */
+    
     public function toggleStatus(User $user)
     {
         if ($user->id === auth()->id()) {
-            return back()->with('error', 'Vous ne pouvez pas vous bannir vous-même.');
+            return back()->with('error', 'Vous ne pouvez pas vous bannir vous-meme.');
         }
 
         $user->is_active = !$user->is_active;
@@ -69,9 +57,7 @@ class AdminUserController extends Controller
         return back()->with('success', $statusMessage);
     }
 
-    /**
-     * Remove the specified user from storage.
-     */
+    
     public function destroy(User $user)
     {
         if ($user->id === auth()->id()) {
@@ -80,6 +66,6 @@ class AdminUserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succès.');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succes.');
     }
 }
