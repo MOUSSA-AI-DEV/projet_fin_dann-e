@@ -10,6 +10,7 @@
             <thead>
                 <tr style="border-bottom: 2px solid #f1f5f9; background: #fafafa;">
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">ID</th>
+                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Photo</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Code / Série</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Pièce Associée</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Voitures Compatibles</th>
@@ -23,6 +24,15 @@
                 @foreach($references as $reference)
                     <tr class="ref-row" style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;">
                         <td style="padding: 0.9rem 1rem; font-weight: 600; color: #94a3b8; font-size: 0.8rem;">#{{ $reference->id }}</td>
+                        <td style="padding: 0.9rem 1rem;">
+                            @if($reference->images && count($reference->images) > 0)
+                                <img src="{{ asset('storage/' . $reference->images[0]) }}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: contain; background: white; border: 1px solid #e2e8f0;">
+                            @else
+                                <div style="width: 40px; height: 40px; border-radius: 4px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 1rem;">
+                                    ⚙️
+                                </div>
+                            @endif
+                        </td>
                         <td style="padding: 0.9rem 1rem; min-width: 150px;">
                             <div style="font-weight: 700; color: #1e293b; font-size: 0.875rem; letter-spacing: 0.3px;">{{ $reference->reference }}</div>
                             <div style="font-size: 0.78rem; color: #64748b; margin-top: 2px;">{{ $reference->nom }}</div>
