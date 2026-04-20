@@ -17,13 +17,13 @@ class ReferenceVoitureController extends Controller
 
         $reference->voitures()->syncWithoutDetaching([$request->voiture_id]);
 
-        return back()->with('success', 'Voiture associée avec succès.');
+        return back()->with('success', 'Voiture associee avec succes.');
     }
 
     public function detachVoiture(Reference $reference, Voiture $voiture)
     {
         $reference->voitures()->detach($voiture->id);
 
-        return back()->with('success', 'Association supprimée avec succès.');
+        return back()->with('success', 'Association supprimee avec succes.');
     }
 }

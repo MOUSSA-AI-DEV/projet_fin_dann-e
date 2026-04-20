@@ -8,6 +8,7 @@ use App\Models\Piece;
 use App\Models\Voiture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ReferenceController extends Controller
 {
@@ -58,6 +59,9 @@ class ReferenceController extends Controller
             'garantie' => 'nullable|string|max:50',
             'is_active' => 'boolean',
             'position' => 'nullable|integer',
+            'prix' => 'nullable|numeric|min:0',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'voiture_ids' => 'nullable|array',
             'voiture_ids.*' => 'exists:voitures,id'
         ]);
@@ -69,6 +73,15 @@ class ReferenceController extends Controller
             $slug = $validated['slug'] . '-' . $count++;
         }
         $validated['slug'] = $slug;
+
+        if ($request->hasFile('images')) {
+            $images = [];
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('references', 'public');
+                $images[] = $path;
+            }
+            $validated['images'] = $images;
+        }
 
         $reference = Reference::create($validated);
 
@@ -102,6 +115,10 @@ class ReferenceController extends Controller
             'garantie' => 'nullable|string|max:50',
             'is_active' => 'boolean',
             'position' => 'nullable|integer',
+            'prix' => 'nullable|numeric|min:0',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'delete_images' => 'nullable|array',
             'voiture_ids' => 'nullable|array',
             'voiture_ids.*' => 'exists:voitures,id'
         ]);
@@ -116,6 +133,26 @@ class ReferenceController extends Controller
             $validated['slug'] = $slug;
         }
 
+        $currentImages = $reference->images ?? [];
+
+        // Handle deletions
+        if ($request->has('delete_images')) {
+            foreach ($request->delete_images as $imgToDelete) {
+                Storage::disk('public')->delete($imgToDelete);
+                $currentImages = array_filter($currentImages, fn($img) => $img !== $imgToDelete);
+            }
+        }
+
+        // Handle new uploads
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('references', 'public');
+                $currentImages[] = $path;
+            }
+        }
+
+        $validated['images'] = array_values($currentImages);
+
         $reference->update($validated);
 
         if ($request->has('voiture_ids')) {
@@ -129,6 +166,11 @@ class ReferenceController extends Controller
 
     public function destroy(Reference $reference)
     {
+        if ($reference->images) {
+            foreach ($reference->images as $image) {
+                Storage::disk('public')->delete($image);
+            }
+        }
         $reference->delete();
         return redirect()->route('admin.references.index')->with('success', 'Référence supprimée avec succès.');
     }
