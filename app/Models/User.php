@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Command::class);
     }
+
+    public function commandes()
+    {
+        return $this->hasMany(Command::class);
+    }
 }

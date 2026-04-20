@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->integer('position')->default(0);
             $table->timestamps();
 
-            // Index performance critique
+           
             $table->index(['marque_id', 'categorie_id']);
             $table->index('is_visible');
         });

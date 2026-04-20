@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('email', 150)->unique();
             $table->string('telephone', 20)->nullable();
             $table->string('password', 255);
-            $table->enum('role', ['user', 'admin', 'garage'])->default('user');
+            $table->enum('role', ['user', 'admin'])->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->text('adresse_livraison')->nullable();
             $table->string('code_postal', 10)->nullable();

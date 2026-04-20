@@ -16,12 +16,14 @@ class Reference extends Model
         'is_active',
         'position',
         'stock',
-        'prix'
+        'prix',
+        'images'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'prix' => 'float',
+        'images' => 'array',
     ];
 
     public function piece()
@@ -32,5 +34,10 @@ class Reference extends Model
     public function voitures()
     {
         return $this->belongsToMany(Voiture::class, 'reference_voiture');
+    }
+
+    public function commandes()
+    {
+        return $this->belongsToMany(Command::class, 'commande_reference');
     }
 }
