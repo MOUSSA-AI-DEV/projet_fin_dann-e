@@ -8,7 +8,7 @@
 </div>
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
-    <!-- Lignes de commande -->
+    <!-- Ligne de commande -->
     <div class="card" style="padding: 0; overflow-x: auto;">
         <h3 style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); margin: 0;">Articles Commandés</h3>
         <table style="width: 100%; border-collapse: collapse; min-width: 500px;">
@@ -51,7 +51,7 @@
         </table>
     </div>
 
-    <!-- info Commande -->
+    <!--infos Commande -->
     <div>
         <div class="card" style="margin-bottom: 1.5rem;">
             <h3 style="margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">Informations</h3>
