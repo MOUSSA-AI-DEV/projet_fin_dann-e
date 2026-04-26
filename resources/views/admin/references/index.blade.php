@@ -156,7 +156,7 @@
                 const html = await response.text();
                 container.innerHTML = html;
                 
-                // Update URL without reloading
+                // update la bare pour visualisation de localisation
                 const url = new URL(window.location);
                 if (query) url.searchParams.set('search', query);
                 else url.searchParams.delete('search');

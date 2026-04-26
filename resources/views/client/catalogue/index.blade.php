@@ -146,7 +146,7 @@
                             <div class="product-price">
                                 <div>
                                     <span style="font-size:0.8rem; color:var(--text-secondary); display:block; font-weight:500;">À partir de</span>
-                                    {{ number_format($piece->prix, 2) }} €
+                                    {{ number_format($piece->prix, 2) }} MAD
                                 </div>
                                 <span class="btn btn-sm btn-outline">Détails</span>
                             </div>

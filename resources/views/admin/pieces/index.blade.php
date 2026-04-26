@@ -85,7 +85,7 @@
                 performSearch(query);
             }, 300);
         });
-
+//pour ne refraiche la page lors de la recherche
         document.getElementById('search-form').addEventListener('submit', function(e) {
             e.preventDefault();
             performSearch(searchInput.value);
@@ -100,6 +100,7 @@
                 const html = await response.text();
                 container.innerHTML = html;
                 
+                // update la bare pour visualisation de localisation
                 const url = new URL(window.location);
                 if (query) url.searchParams.set('search', query);
                 else url.searchParams.delete('search');
