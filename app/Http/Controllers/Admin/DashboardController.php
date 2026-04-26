@@ -14,8 +14,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // 1. Commandes aujourd'hui (pending / paid / failed)
-       
+      
         $commandesPendingToday = Command::whereDate('created_at', today())
             ->where('payment_status', 'pending')
             ->count();
@@ -28,14 +27,14 @@ class DashboardController extends Controller
             ->where('payment_status', 'refunded')
             ->count();
             
-        // 2. Chiffre d'affaires (24h / 7j / 30j) basé sur les lignes paid
+    
         
         $ca24h = DB::table('commande_references')
             ->join('commandes', 'commande_references.commande_id', '=', 'commandes.id')
             ->where('commandes.payment_status', 'paid')
             ->where('commandes.created_at', '>=', now()->subDay())
             ->sum('commande_references.total_ligne');
-            
+        
         $ca7j = DB::table('commande_references')
             ->join('commandes', 'commande_references.commande_id', '=', 'commandes.id')
             ->where('commandes.payment_status', 'paid')
@@ -48,11 +47,13 @@ class DashboardController extends Controller
             ->where('commandes.created_at', '>=', now()->subDays(30))
             ->sum('commande_references.total_ligne');
 
-        // 3. Références en stock critique (< 50)
+        
+
         $piecesStockCritique = Reference::where('stock', '<', 50)->get();
         $countStockCritique = $piecesStockCritique->count();
         
-        // 4. Nouveaux utilisateurs de ces 30 derniers jours
+   
+
         $nouveauxUtilisateurs = User::where('created_at', '>=', now()->subDays(30))->count();
         
         // 5. Top 10 séries (références) vendues

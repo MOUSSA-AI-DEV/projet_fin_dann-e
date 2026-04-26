@@ -46,6 +46,7 @@ class MarqueController extends Controller
     public function update(Request $request, Marque $marque)
     {
         $validated = $request->validate([
+            
             'nom' => 'required|string|max:50|unique:marques,nom,' . $marque->id,
             'logo_url' => 'nullable|url|max:255',
             'is_active' => 'boolean'
@@ -53,12 +54,12 @@ class MarqueController extends Controller
 
         $marque->update($validated);
 
-        return redirect()->route('admin.marques.index')->with('success', 'Marque mise à jour avec succès.');
+        return redirect()->route('admin.marques.index')->with('success', 'Marque mise a jour.');
     }
 
     public function destroy(Marque $marque)
     {
         $marque->delete();
-        return redirect()->route('admin.marques.index')->with('success', 'Marque supprimée avec succès.');
+        return redirect()->route('admin.marques.index')->with('success', 'Marque supprimee.');
     }
 }
