@@ -53,7 +53,7 @@ class AdminUserController extends Controller
         $user->is_active = !$user->is_active;
         $user->save();
 
-        $statusMessage = $user->is_active ? 'Utilisateur réactivé.' : 'Utilisateur banni.';
+        $statusMessage = $user->is_active ? 'utilisateur activer.' : 'Utilisateur banni.';
         return back()->with('success', $statusMessage);
     }
 
@@ -66,6 +66,6 @@ class AdminUserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succes.');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprime avec succes.');
     }
 }
