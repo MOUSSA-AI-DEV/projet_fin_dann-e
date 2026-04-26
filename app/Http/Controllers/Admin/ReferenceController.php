@@ -89,7 +89,7 @@ class ReferenceController extends Controller
             $reference->voitures()->sync($request->voiture_ids);
         }
 
-        return redirect()->route('admin.references.index')->with('success', 'Référence créée avec succès.');
+        return redirect()->route('admin.references.index')->with('success', 'reference cree.');
     }
 
     public function show(Reference $reference)
@@ -124,8 +124,7 @@ class ReferenceController extends Controller
         ]);
 
         if ($validated['nom'] !== $reference->nom) {
-            $validated['slug'] = Str::slug($validated['nom']);
-            $slug = $validated['slug'];
+            $slug = Str::slug($validated['nom']);
             $count = 1;
             while (Reference::where('slug', $slug)->where('id', '!=', $reference->id)->exists()) {
                 $slug = $validated['slug'] . '-' . $count++;
@@ -135,7 +134,7 @@ class ReferenceController extends Controller
 
         $currentImages = $reference->images ?? [];
 
-        // Handle deletions
+        //suppression de page
         if ($request->has('delete_images')) {
             foreach ($request->delete_images as $imgToDelete) {
                 Storage::disk('public')->delete($imgToDelete);
@@ -143,25 +142,24 @@ class ReferenceController extends Controller
             }
         }
 
-        // Handle new uploads
+        //telechargement de page
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('references', 'public');
                 $currentImages[] = $path;
             }
         }
-
         $validated['images'] = array_values($currentImages);
 
         $reference->update($validated);
-
+// mise ajours de compatibilite si exist au mois une voiture 
         if ($request->has('voiture_ids')) {
             $reference->voitures()->sync($request->voiture_ids);
         } else {
             $reference->voitures()->detach();
         }
 
-        return redirect()->route('admin.references.index')->with('success', 'Référence mise à jour avec succès.');
+        return redirect()->route('admin.references.index')->with('success', 'reference mise a jour avec succes.');
     }
 
     public function destroy(Reference $reference)

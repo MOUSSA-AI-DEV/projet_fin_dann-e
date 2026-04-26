@@ -15,7 +15,7 @@ class ReferenceVoitureController extends Controller
             'voiture_id' => 'required|exists:voitures,id'
         ]);
 
-        $reference->voitures()->syncWithoutDetaching([$request->voiture_id]);
+        $reference->voitures()->attach([$request->voiture_id]);
 
         return back()->with('success', 'Voiture associee avec succes.');
     }

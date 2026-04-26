@@ -26,10 +26,10 @@ class PieceController extends Controller
             })
             ->latest();
 
-        $pieces = $query->paginate(15)->appends(['search' => $search]);
+        $pieces = $query->paginate(10)->appends(['search' => $search]);
 
         if ($request->ajax()) {
-            return view('admin.pieces._table', compact('pieces', 'search'))->render();
+            return view('admin.pieces._table', compact('pieces'));
         }
 
         return view('admin.pieces.index', compact('pieces', 'search'));
@@ -55,8 +55,7 @@ class PieceController extends Controller
             'position' => 'nullable|integer'
         ]);
 
-        $validated['slug'] = Str::slug($validated['nom']);
-        $slug = $validated['slug'];
+        $slug = Str::slug($validated['nom']);
         $count = 1;
         while (Piece::where('slug', $slug)->exists()) {
             $slug = $validated['slug'] . '-' . $count++;
@@ -65,7 +64,7 @@ class PieceController extends Controller
 
         Piece::create($validated);
 
-        return redirect()->route('admin.pieces.index')->with('success', 'Pièce créée avec succès.');
+        return redirect()->route('admin.pieces.index')->with('success', 'piece cree.');
     }
 
     public function show(Piece $piece)
@@ -95,9 +94,9 @@ class PieceController extends Controller
         ]);
 
         if ($validated['nom'] !== $piece->nom) {
-            $validated['slug'] = Str::slug($validated['nom']);
-            $slug = $validated['slug'];
+           $slug = Str::slug($validated['nom']);
             $count = 1;
+            // verifier si slug existe
             while (Piece::where('slug', $slug)->where('id', '!=', $piece->id)->exists()) {
                 $slug = $validated['slug'] . '-' . $count++;
             }
