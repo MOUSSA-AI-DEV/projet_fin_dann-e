@@ -41,7 +41,7 @@ class PanierController extends Controller
         
         session()->put('panier', $panier);
         
-        return redirect()->back()->with('success', 'Pièce ajoutée au panier !');
+        return redirect()->back()->with('success', 'element ajouter au panier');
     }
 
     public function modifier(Request $request)
@@ -50,7 +50,7 @@ class PanierController extends Controller
             $panier = session()->get('panier');
             $panier[$request->reference_id]['quantite'] = $request->quantite;
             session()->put('panier', $panier);
-            session()->flash('success', 'Panier mis à jour');
+            session()->flash('success', 'element modifier dans le panier');
         }
         return redirect()->back();
     }
@@ -63,7 +63,8 @@ class PanierController extends Controller
                 unset($panier[$id]);
                 session()->put('panier', $panier);
             }
-            session()->flash('success', 'Pièce retirée du panier');
+            
+            session()->flash('success', 'element retirer du panier');
         }
         return redirect()->back();
     }

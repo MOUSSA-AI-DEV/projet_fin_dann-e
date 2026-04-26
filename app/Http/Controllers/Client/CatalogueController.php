@@ -15,6 +15,7 @@ class CatalogueController extends Controller
             ->where('is_visible', true);
 
         if ($request->filled('categorie')) {
+
             $query->where('categorie_id', $request->categorie);
         }
 
