@@ -20,15 +20,15 @@ class CommandeController extends Controller
     public function index(Request $request)
     {
         $query = Command::with('user')->latest();
-
+// changer status de commande
         if ($request->has('statut') && $request->statut != '') {
             $query->where('statut', $request->statut);
         }
-
+// chnager status de paiement de commande
         if ($request->has('payment_status') && $request->payment_status != '') {
             $query->where('payment_status', $request->payment_status);
         }
-
+//chercher  par num ou par client
         if ($request->has('search') && $request->search != '') {
             $query->where(function($q) use ($request) {
                 $q->where('numero_commande', 'like', '%' . $request->search . '%')
@@ -54,6 +54,7 @@ class CommandeController extends Controller
 
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             
@@ -61,8 +62,8 @@ class CommandeController extends Controller
             'statut' => 'required|string',
             'payment_status' => 'required|string',
             
-            'references' => 'required|array|min:1',
-            'references.*.id' => 'required|exists:references,id',
+            'references' => 'required|array|min:1',//n accepte pas commande vide
+            'references.*.id' => 'required|exists:references,id',//exist dans table references
             'references.*.quantite' => 'required|integer|min:1',
             'references.*.prix' => 'required|numeric|min:0',
         ]);
@@ -97,6 +98,7 @@ class CommandeController extends Controller
                 $reference->decrement('stock', $refData['quantite']);
             }
 
+            // creation de commande 
             $commande = Command::create([
                 'user_id' => $userId,
                 'numero_commande' => 'CMD-' . now()->format('Ymd-His'),
@@ -105,8 +107,7 @@ class CommandeController extends Controller
                 'notes_client' => $validated['notes_client'],
                 'total' => $total,
             ]);
-
-
+            //lier commande et les refernces
             foreach ($lignes as $ligne) {
                 $ligne['commande_id'] = $commande->id;
                 CommandeReference::create($ligne);
@@ -118,17 +119,17 @@ class CommandeController extends Controller
             $pdfName = 'facture_' . $commande->numero_commande . '.pdf';
             $pdfPath = 'factures/' . $pdfName;
             
-            Storage::disk('public')->put($pdfPath, $pdf->output());
+            Storage::disk('public')->put($pdfPath, $pdf->output());//
             
             $commande->update(['facture_pdf' => $pdfPath]);
 
             DB::commit();
 
-            return redirect()->route('admin.commandes.show', $commande)->with('success', 'Commande créée avec succès.');
+            return redirect()->route('admin.commandes.show', $commande)->with('success', 'Commande creee.');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->with('error', 'Erreur lors de la création de la commande : ' . $e->getMessage());
+            return back()->withInput()->with('error', 'Erreur lors de la creation de la commande : ' . $e->getMessage());
         }
     }
 
@@ -148,16 +149,16 @@ class CommandeController extends Controller
 
         $commande->update($validated);
 
-        return redirect()->back()->with('success', 'La commande a été mise à jour avec succès.');
+        return redirect()->back()->with('success', 'La commande est mise a jour.');
     }
 
-    /**
-     * Show the invoice PDF.
-     */
+  
+
     public function showFacture(Command $commande)
     {
+        
         if (!$commande->facture_pdf) {
-            abort(404, 'Facture non générée.');
+            abort(404, 'Facture non generee.');
         }
 
         // Nettoyer le chemin si nécessaire (cas des anciennes commandes avec "storage/")
@@ -169,7 +170,7 @@ class CommandeController extends Controller
         if (!Storage::disk('public')->exists($path)) {
             abort(404, 'Le fichier PDF est introuvable sur le disque.');
         }
-
+//strrem response
         return Storage::disk('public')->response($path);
     }
 }

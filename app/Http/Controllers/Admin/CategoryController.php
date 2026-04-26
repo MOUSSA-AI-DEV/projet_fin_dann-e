@@ -17,6 +17,7 @@ class CategoryController extends Controller
 
     public function create()
     {
+        //pour sous categorie   
         $parents = Category::whereNull('parent_id')->get();
         return view('admin.categories.create', compact('parents'));
     }
@@ -32,9 +33,7 @@ class CategoryController extends Controller
             'is_active' => 'boolean'
         ]);
 
-        $validated['slug'] = Str::slug($validated['nom']);
-        
-        $slug = $validated['slug'];
+        $slug = Str::slug($validated['nom']);
         $count = 1;
         while (Category::where('slug', $slug)->exists()) {
             $slug = $validated['slug'] . '-' . $count++;
@@ -53,6 +52,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        //get les categories parent pour la modification
         $parents = Category::whereNull('parent_id')->where('id', '!=', $category->id)->get();
         return view('admin.categories.edit', compact('category', 'parents'));
     }
@@ -69,8 +69,7 @@ class CategoryController extends Controller
         ]);
 
         if ($validated['nom'] !== $category->nom) {
-            $validated['slug'] = Str::slug($validated['nom']);
-            $slug = $validated['slug'];
+            $slug = Str::slug($validated['nom']);
             $count = 1;
             while (Category::where('slug', $slug)->where('id', '!=', $category->id)->exists()) {
                 $slug = $validated['slug'] . '-' . $count++;
@@ -80,12 +79,12 @@ class CategoryController extends Controller
 
         $category->update($validated);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Catégorie mise à jour avec succès.');
+        return redirect()->route('admin.categories.index')->with('success', 'categorie modifiee avec succes.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Catégorie supprimée avec succès.');
+        return redirect()->route('admin.categories.index')->with('success', 'est supprimee');
     }
 }
