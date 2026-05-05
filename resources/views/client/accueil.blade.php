@@ -120,9 +120,9 @@
                 <div class="product-title">{{ $piece->nom }}</div>
                 <div class="product-price">
                     @if($piece->references->count() > 0)
-                        À partir de {{ number_format($piece->references->min('prix') ?? $piece->prix, 2) }} €
+                        À partir de {{ number_format($piece->references->min('prix') ?? $piece->prix, 2) }} MAD
                     @else
-                        {{ number_format($piece->prix, 2) }} €
+                        {{ number_format($piece->prix, 2) }} MAD
                     @endif
                 </div>
             </div>

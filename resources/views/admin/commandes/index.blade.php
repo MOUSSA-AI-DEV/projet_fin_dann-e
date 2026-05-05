@@ -93,7 +93,7 @@
                                     <span style="color: #dc2626; font-size: 0.875rem; font-weight: 600;">● Échoué</span>
                                 @endif
                             </td>
-                            <td style="padding: 1rem; font-weight: 700; color: #1e293b; font-size: 0.875rem;">{{ number_format($commande->total, 2, ',', ' ') }} €</td>
+                            <td style="padding: 1rem; font-weight: 700; color: #1e293b; font-size: 0.875rem;">{{ number_format($commande->total, 2, ',', ' ') }} MAD</td>
                             <td style="padding: 1rem; text-align: right;">
                                 <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
                                     <a href="{{ route('admin.commandes.show', $commande) }}" style="padding: 6px 12px; background: #eff6ff; border-radius: 6px; color: #2563eb; text-decoration: none; font-size: 0.78rem; font-weight: 600;">Détails</a>

@@ -30,7 +30,7 @@
                         </td>
                         <td style="padding: 0.9rem 1rem; color: #475569;">{{ $piece->category->nom }}</td>
                         <td style="padding: 0.9rem 1rem; color: #475569;">{{ $piece->marque->nom }}</td>
-                        <td style="padding: 0.9rem 1rem; font-weight: 600;">{{ number_format($piece->prix, 2) }} €</td>
+                        <td style="padding: 0.9rem 1rem; font-weight: 600;">{{ number_format($piece->prix, 2) }} MAD</td>
                         <td style="padding: 0.9rem 1rem;">
                             @if($piece->is_visible)
                                 <span style="color: #166534; background: #dcfce7; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">Visible</span>

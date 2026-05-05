@@ -42,9 +42,9 @@
                             @endif
                         </div>
                     </td>
-                    <td style="padding: 1rem; text-align: center;">{{ number_format($ligne->prix_unitaire, 2) }} €</td>
+                    <td style="padding: 1rem; text-align: center;">{{ number_format($ligne->prix_unitaire, 2) }} MAD</td>
                     <td style="padding: 1rem; text-align: center;">x {{ $ligne->quantite }}</td>
-                    <td style="padding: 1rem; text-align: right; font-weight: 700;">{{ number_format($ligne->total_ligne, 2) }} €</td>
+                    <td style="padding: 1rem; text-align: right; font-weight: 700;">{{ number_format($ligne->total_ligne, 2) }} MAD</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -74,7 +74,7 @@
             <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-weight: 700; font-size: 1.1rem;">Total</span>
-                    <span style="font-weight: 800; font-size: 1.5rem; color: var(--accent);">{{ number_format($commande->total, 2) }} €</span>
+                    <span style="font-weight: 800; font-size: 1.5rem; color: var(--accent);">{{ number_format($commande->total, 2) }} MAD</span>
                 </div>
             </div>
         </div>

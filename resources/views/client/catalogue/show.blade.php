@@ -104,7 +104,7 @@
         <table class="references-table">
             <thead>
                 <tr>
-                    <th>Photo</th>
+                    <th>Photo </th>
                     <th>Code OEM</th>
                     <th>Nom commercial</th>
                     <th>Disponibilité</th>
@@ -140,7 +140,7 @@
                             <span class="badge badge-red">Rupture</span>
                         @endif
                     </td>
-                    <td class="ref-price">{{ number_format($ref->prix ?? $piece->prix, 2) }} €</td>
+                    <td class="ref-price">{{ number_format($ref->prix ?? $piece->prix, 2) }} MAD</td>
                     <td style="text-align: right;">
                         <form action="{{ route('client.panier.ajouter') }}" method="POST" style="display: flex; gap: 0.5rem; justify-content: flex-end;">
                             @csrf

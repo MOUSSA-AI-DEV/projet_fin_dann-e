@@ -42,7 +42,7 @@
                         @endif
                     </td>
                     <td style="padding: 1rem; text-align: right; font-weight: 700;">
-                        {{ number_format($commande->total, 2) }} €
+                        {{ number_format($commande->total, 2) }} MAD
                     </td>
                     <td style="padding: 1rem; text-align: center;">
                         @if($commande->facture_pdf)

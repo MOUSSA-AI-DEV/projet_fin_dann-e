@@ -267,7 +267,7 @@
                     <span>🚪</span> Déconnexion
                 </button>
             </form>
-        </div>
+        </div>  
     </aside>
 
     {{-- ── MAIN ── --}}

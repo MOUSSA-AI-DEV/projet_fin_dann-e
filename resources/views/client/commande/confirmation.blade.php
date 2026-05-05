@@ -9,7 +9,7 @@
     <h2 style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 2rem;">Numéro : <span style="color: white; font-family: monospace;">{{ $commande->numero_commande }}</span></h2>
     
     <div class="card" style="margin-bottom: 2rem; border: 1px solid var(--success); background: rgba(16, 185, 129, 0.05);">
-        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Total de votre commande : <strong style="font-size: 1.3rem;">{{ number_format($commande->total, 2) }} €</strong></p>
+        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Total de votre commande : <strong style="font-size: 1.3rem;">{{ number_format($commande->total, 2) }} MAD</strong></p>
         <p style="color: var(--text-secondary); font-size: 0.95rem;">Un technicien va préparer votre commande dans les plus brefs délais.</p>
     </div>
 

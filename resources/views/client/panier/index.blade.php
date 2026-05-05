@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td style="padding: 1rem; text-align: center; font-weight: 600;">{{ number_format($item['prix'], 2) }} €</td>
+                            <td style="padding: 1rem; text-align: center; font-weight: 600;">{{ number_format($item['prix'], 2) }} MAD</td>
                             <td style="padding: 1rem; text-align: center;">
                                 <form action="{{ route('client.panier.modifier') }}" method="POST" style="display: flex; justify-content: center; gap: 0.5rem; align-items: center;">
                                     @csrf @method('PUT')
@@ -53,7 +53,7 @@
                                 </form>
                             </td>
                             <td style="padding: 1rem; text-align: right; font-weight: 800; color: var(--accent);">
-                                {{ number_format($item['prix'] * $item['quantite'], 2) }} €
+                                {{ number_format($item['prix'] * $item['quantite'], 2) }} MAD
                             </td>
                             <td style="padding: 1rem; text-align: center;">
                                 <form action="{{ route('client.panier.supprimer', $id) }}" method="POST">
@@ -78,7 +78,7 @@
                 
                 <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--text-secondary);">
                     <span>Sous-total</span>
-                    <span>{{ number_format($total, 2) }} €</span>
+                    <span>{{ number_format($total, 2) }} MAD</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; color: var(--text-secondary);">
                     <span>Livraison</span>
@@ -87,7 +87,7 @@
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
                     <span style="font-size: 1.2rem; font-weight: 700;">Total TTC</span>
-                    <span style="font-size: 1.8rem; font-weight: 800; color: white;">{{ number_format($total, 2) }} €</span>
+                    <span style="font-size: 1.8rem; font-weight: 800; color: white;">{{ number_format($total, 2) }} MAD</span>
                 </div>
 
                 @auth

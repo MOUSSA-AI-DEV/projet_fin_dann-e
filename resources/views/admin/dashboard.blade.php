@@ -67,7 +67,7 @@
                 <div class="card shadow-sm border-0 rounded-3 h-100" style="border-left: 4px solid #111827 !important;">
                     <div class="card-body p-4">
                         <p class="text-uppercase fw-bold mb-2" style="font-size: 0.75rem; letter-spacing: 0.5px; color: #111827;">C.A. (24h)</p>
-                        <h4 class="text-dark fw-bold mb-0">{{ number_format($ca24h, 2, ',', ' ') }} €</h4>
+                        <h4 class="text-dark fw-bold mb-0">{{ number_format($ca24h, 2, ',', ' ') }} MAD</h4>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <div class="card shadow-sm border-0 rounded-3 h-100" style="border-left: 4px solid #dc3545 !important;">
                     <div class="card-body p-4">
                         <p class="text-uppercase fw-bold mb-2" style="font-size: 0.75rem; letter-spacing: 0.5px; color: #dc3545;">C.A. (7 jours)</p>
-                        <h4 class="text-dark fw-bold mb-0">{{ number_format($ca7j, 2, ',', ' ') }} €</h4>
+                        <h4 class="text-dark fw-bold mb-0">{{ number_format($ca7j, 2, ',', ' ') }} MAD</h4>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <div class="card shadow-sm border-0 rounded-3 h-100" style="border-left: 4px solid #991b1b !important;">
                     <div class="card-body p-4">
                         <p class="text-uppercase fw-bold mb-2" style="font-size: 0.75rem; letter-spacing: 0.5px; color: #991b1b;">C.A. (30 jours)</p>
-                        <h4 class="text-dark fw-bold mb-0">{{ number_format($ca30j, 2, ',', ' ') }} €</h4>
+                        <h4 class="text-dark fw-bold mb-0">{{ number_format($ca30j, 2, ',', ' ') }} MAD</h4>
                     </div>
                 </div>
             </div>

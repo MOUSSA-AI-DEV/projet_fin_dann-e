@@ -89,7 +89,7 @@
                             @elseif($stock < 50) <span style="color: #b45309; font-weight: 700; font-size: 0.875rem;">{{ $stock }}</span>
                             @else <span class="pill pill-green">{{ $stock }}</span> @endif
                         </td>
-                        <td style="padding: 0.9rem 1rem; font-weight: 700; color: #1e293b; font-size: 0.875rem;">{{ number_format($reference->prix, 2, ',', ' ') }} €</td>
+                        <td style="padding: 0.9rem 1rem; font-weight: 700; color: #1e293b; font-size: 0.875rem;">{{ number_format($reference->prix, 2, ',', ' ') }} MAD</td>
                         <td style="padding: 0.9rem 1rem;">
                             @if($reference->is_active) <span class="pill pill-green">● Actif</span>
                             @else <span class="pill pill-red">● Inactif</span> @endif

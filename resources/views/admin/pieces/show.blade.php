@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div style="text-align: right;">
-                    <div style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">{{ number_format($piece->prix, 2) }} €</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">{{ number_format($piece->prix, 2) }} MAD</div>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
                                     <span style="font-weight: 700; color: #1e293b; font-size: 1.1rem;">{{ $reference->reference }}</span>
                                     <span style="font-size: 0.85rem; color: #64748b; margin-left: 0.5rem;">- {{ $reference->nom }}</span>
                                     <div style="font-size: 0.9rem; margin-top: 0.25rem;">
-                                        <span style="font-weight: 600; color: #2563eb;">{{ number_format($reference->prix, 2) }} €</span>
+                                        <span style="font-weight: 600; color: #2563eb;">{{ number_format($reference->prix, 2) }} MAD</span>
                                         <span style="margin-left: 1rem; font-weight: 600; color: {{ $reference->stock > 5 ? '#166534' : '#991b1b' }};">Stock: {{ $reference->stock }}</span>
                                     </div>
                                 </div>

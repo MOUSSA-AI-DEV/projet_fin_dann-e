@@ -75,7 +75,7 @@
                         </tr>
                         <tr>
                             <td colspan="3" style="padding: 1rem; text-align: right; font-weight: 700; font-size: 1.1rem; color: #1e293b;">TOTAL TTC :</td>
-                            <td style="padding: 1rem; text-align: right; font-weight: 800; font-size: 1.2rem; color: #e11d48;" id="grand-total">0.00 €</td>
+                            <td style="padding: 1rem; text-align: right; font-weight: 800; font-size: 1.2rem; color: #e11d48;" id="grand-total">0.00 MAD</td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -118,7 +118,7 @@
             let optionsHtml = '<option value="">-- Choisir une référence --</option>';
             references.forEach(ref => {
                 optionsHtml += `<option value="${ref.id}" data-prix="${ref.prix}" data-stock="${ref.stock}">
-                    ${ref.label} (Stock: ${ref.stock} | ${Number(ref.prix).toFixed(2)}€)
+                    ${ref.label} (Stock: ${ref.stock} | ${Number(ref.prix).toFixed(2)}MAD)
                 </option>`;
             });
 
@@ -138,7 +138,7 @@
                            style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 0.85rem; text-align: center;">
                 </td>
                 <td style="padding: 0.75rem; text-align: right; font-weight: 600; color: #1e293b;" class="line-total">
-                    0.00 €
+                    0.00 MAD
                 </td>
                 <td style="padding: 0.75rem; text-align: right;">
                     <button type="button" onclick="this.closest('tr').remove(); calculateGrandTotal();" style="color: #ef4444; background: none; border: none; cursor: pointer; font-size: 1.2rem;">×</button>
@@ -176,9 +176,9 @@
                 }
                 
                 const total = prix * parseInt(qtyInput.value);
-                totalDisplay.innerText = total.toFixed(2) + ' €';
+                totalDisplay.innerText = total.toFixed(2) + ' MAD';
             } else {
-                totalDisplay.innerText = '0.00 €';
+                totalDisplay.innerText = '0.00 MAD';
             }
             
             calculateGrandTotal();
@@ -200,7 +200,7 @@
                 }
             });
             
-            document.getElementById('grand-total').innerText = total.toFixed(2) + ' €';
+            document.getElementById('grand-total').innerText = total.toFixed(2) + ' MAD';
         }
 
         // Add one empty row on load

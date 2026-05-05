@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('references', function (Blueprint $table) {
-            $table->json('images')->nullable()->after('prix');
+            $table->json('images')->nullable();
         });
     }
 
