@@ -49,8 +49,8 @@ class DashboardController extends Controller
 
         
 
-        $piecesStockCritique = Reference::where('stock', '<', 50)->get();
-        $countStockCritique = $piecesStockCritique->count();
+        $countStockCritique = Reference::where('stock', '<', 50)->count();
+        $piecesStockCritique = Reference::where('stock', '<', 50)->take(10)->get();
         
    
 

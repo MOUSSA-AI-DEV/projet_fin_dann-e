@@ -27,8 +27,8 @@ Route::get('/catalogue', [CatalogueController::class, 'index'])->name('client.ca
 
 Route::get('/catalogue/{slug}', [CatalogueController::class, 'show'])->name('client.catalogue.show');
 Route::get('/categorie/{slug}', [CatalogueController::class, 'parCategorie'])->name('client.categorie.show');
-Route::get('/recherche', [CatalogueController::class, 'recherche'])->name('client.recherche');
-Route::get('/api/search/suggestions', [CatalogueController::class, 'suggestions'])->name('client.search.suggestions');
+Route::get('/recherche', [CatalogueController::class, 'recherche'])->name('client.recherche')->middleware('throttle:api');
+Route::get('/api/search/suggestions', [CatalogueController::class, 'suggestions'])->name('client.search.suggestions')->middleware('throttle:api');
 
 Route::get('/recherche-voiture', [RechercheVoitureController::class, 'index'])->name('client.voiture.index');
 Route::get('/api/voitures/modeles', [RechercheVoitureController::class, 'getModeles'])->name('client.voiture.modeles');
@@ -48,7 +48,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login');
 });
 
 Route::middleware('auth')->group(function () {
@@ -74,8 +74,12 @@ Route::middleware('auth')->group(function () {
             Route::resource('marques', MarqueController::class);
             Route::resource('categories', CategoryController::class);
             Route::resource('pieces', PieceController::class);
+            Route::post('references/import', [ReferenceController::class, 'import'])->name('references.import');
+            Route::post('references/update-global-pricing', [ReferenceController::class, 'updateGlobalPricing'])->name('references.update-global-pricing');
             Route::resource('references', ReferenceController::class);
+
             Route::resource('voitures', VoitureController::class);
+            Route::resource('factures-fournisseur', \App\Http\Controllers\Admin\FactureFournisseurController::class)->only(['index', 'show', 'destroy']);
             Route::resource('commandes', AdminCommandeController::class)->except(['destroy', 'edit']);
             Route::get('commandes/{commande}/facture', [AdminCommandeController::class, 'showFacture'])->name('commandes.facture');
             Route::post('references/{reference}/voitures', [ReferenceVoitureController::class, 'attachVoiture'])->name('references.voitures.attach');

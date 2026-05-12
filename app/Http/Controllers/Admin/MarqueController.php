@@ -9,10 +9,18 @@ use Illuminate\Support\Str;
 
 class MarqueController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $marques = Marque::latest()->paginate(10);
-        return view('admin.marques.index', compact('marques'));
+        $search = trim($request->input('search', ''));
+
+        $marques = Marque::when($search !== '', function ($q) use ($search) {
+                $q->where('nom', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10)
+            ->appends(['search' => $search]);
+
+        return view('admin.marques.index', compact('marques', 'search'));
     }
 
     public function create()

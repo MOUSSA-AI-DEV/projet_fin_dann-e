@@ -25,6 +25,24 @@
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                 <div>
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">HS Code</label>
+                    <input type="text" name="hs_code" value="{{ old('hs_code') }}" placeholder="Ex: 87089997"
+                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Origine</label>
+                    <input type="text" name="origine" value="{{ old('origine') }}" placeholder="Ex: FR, IT, DE..."
+                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Garantie</label>
+                    <input type="text" name="garantie" value="{{ old('garantie') }}" placeholder="Ex: 2 ans"
+                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                </div>
+                <div>
                     <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Pièce Associée</label>
                     <select name="piece_id" required style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; background: white;">
                         <option value="">-- Sélectionner --</option>
@@ -33,25 +51,69 @@
                         @endforeach
                     </select>
                 </div>
-                <div>
-                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Garantie</label>
-                    <input type="text" name="garantie" value="{{ old('garantie') }}" placeholder="Ex: 2 ans"
-                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+            </div>
+
+            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 1.5rem;">
+                <h4 style="font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Gestion des Prix</h4>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Prix d'Achat (MAD)</label>
+                        <input type="number" step="0.01" name="prix_achat" id="prix_achat" value="{{ old('prix_achat') }}" placeholder="0.00"
+                               style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Coeff. Charges <small style="color:#94a3b8;">(ex: 0.10 = 10%)</small></label>
+                        <input type="number" step="0.01" name="coefficient_charges" id="coefficient_charges" value="{{ old('coefficient_charges', $globalCoeffCharges) }}"
+                               style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Coeff. Bénéficiaire</label>
+                        <input type="number" step="0.01" name="coefficient_beneficiaire" id="coeff" value="{{ old('coefficient_beneficiaire', $globalCoeff) }}"
+                               style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed #e2e8f0;">
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Stock Initial</label>
+                        <input type="number" name="stock" value="{{ old('stock', 0) }}"
+                               style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Prix Final Calculé (Vente)</label>
+                        <div id="prix_vente_display" style="padding: 0.65rem; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; font-weight: 700; color: #2563eb; font-size: 1.1rem;">
+                            0.00 MAD
+                        </div>
+                        <input type="hidden" name="prix" id="prix_hidden" value="{{ old('prix') }}">
+                    </div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                <div>
-                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Prix (MAD)</label>
-                    <input type="number" step="0.01" name="prix" value="{{ old('prix') }}" placeholder="0.00"
-                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
-                </div>
-                <div>
-                    <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Stock Initial</label>
-                    <input type="number" name="stock" value="{{ old('stock', 0) }}"
-                           style="width: 100%; padding: 0.65rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
-                </div>
-            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const prixAchat = document.getElementById('prix_achat');
+                    const coeffCharges = document.getElementById('coefficient_charges');
+                    const coeff = document.getElementById('coeff');
+                    const display = document.getElementById('prix_vente_display');
+                    const hidden = document.getElementById('prix_hidden');
+
+                    function calculate() {
+                        const pa = parseFloat(prixAchat.value) || 0;
+                        const cc = parseFloat(coeffCharges.value) || 0;
+                        const co = parseFloat(coeff.value) || 0;
+                        
+                        const pr = pa * (1 + cc); // prix_revient = achat * (1 + coeff_charges)
+                        const b = pr * co;
+                        const pv = pr + b;
+                        
+                        display.innerText = pv.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' MAD';
+                        hidden.value = pv.toFixed(2);
+                    }
+
+                    [prixAchat, coeffCharges, coeff].forEach(el => el.addEventListener('input', calculate));
+                    calculate();
+                });
+            </script>
 
             <div style="margin-bottom: 1.5rem;">
                 <label style="display: block; font-size: 0.82rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem;">Description</label>

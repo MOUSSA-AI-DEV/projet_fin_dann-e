@@ -2,14 +2,19 @@
     @section('page-title', 'Gestion des Marques')
 
     <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <h3 style="font-size: 1.1rem; font-weight: 600; color: #1e293b;">Liste des Marques</h3>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                @if(session('success'))
-                    <div style="background: #dcfce7; color: #166534; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem;">
-                        {{ session('success') }}
-                    </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <h3 style="font-size: 1.1rem; font-weight: 600; color: #1e293b; margin: 0;">Liste des Marques</h3>
+            
+            <form method="GET" action="{{ route('admin.marques.index') }}" style="display: flex; gap: 0.5rem; flex: 1; max-width: 400px;">
+                <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Rechercher une marque..." 
+                       style="flex: 1; padding: 0.6rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 0.875rem; outline: none; transition: border-color 0.2s;">
+                <button type="submit" style="padding: 0.6rem 1rem; background: #1e293b; color: white; border: none; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer;">🔍</button>
+                @if($search ?? '')
+                    <a href="{{ route('admin.marques.index') }}" style="padding: 0.6rem 1rem; background: #f1f5f9; color: #475569; border-radius: 8px; text-decoration: none; font-size: 0.875rem; display: flex; align-items: center;">✕</a>
                 @endif
+            </form>
+
+            <div style="display: flex; gap: 1rem; align-items: center;">
                 <a href="{{ route('admin.marques.create') }}" style="padding: 0.6rem 1.2rem; background: #2563eb; color: white; border-radius: 6px; text-decoration: none; font-size: 0.875rem; font-weight: 600;">+ Nouvelle Marque</a>
             </div>
         </div>

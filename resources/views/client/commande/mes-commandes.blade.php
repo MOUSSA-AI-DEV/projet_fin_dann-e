@@ -20,7 +20,8 @@
             <tbody>
                 @foreach($commandes as $commande)
                 <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.2s;">
-                    <td style="padding: 1rem; font-family: monospace; font-weight: 600; color: white;">
+                    <td style="padding: 1rem; font-family: monospace; font-weight: 600; color: var(--text-primary);">
+
                         <a href="{{ route('client.commande.detail', $commande->numero_commande) }}" style="text-decoration: underline; text-underline-offset: 4px; color: var(--accent);">{{ $commande->numero_commande }}</a>
                     </td>
                     <td style="padding: 1rem; color: var(--text-secondary);">

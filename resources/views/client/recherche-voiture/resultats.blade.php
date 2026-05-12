@@ -44,7 +44,8 @@
                 <div style="font-family: monospace; color: var(--accent); font-weight: 600; margin-bottom: 1rem;">Réf OEM: {{ $ref->reference }}</div>
                 
                 <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-size: 1.3rem; font-weight: 800; color: white;">{{ number_format($ref->prix ?? $ref->piece->prix, 2) }} €</div>
+                    <div style="font-size: 1.3rem; font-weight: 800; color: var(--text-primary);">{{ number_format($ref->prix ?? $ref->piece->prix, 2) }} €</div>
+
                     @if($ref->stock > 0)
                         <form action="{{ route('client.panier.ajouter') }}" method="POST">
                             @csrf

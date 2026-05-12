@@ -17,7 +17,10 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
             $table->integer('position')->default(0);
             $table->integer('stock')->default(0);
-            $table->decimal('prix', 8, 2)->nullable();
+            $table->decimal('prix_achat', 10, 2)->nullable();
+            $table->decimal('coefficient_charges', 5, 2)->default(0.10);
+            $table->decimal('coefficient_beneficiaire', 5, 2)->default(0.20);
+            $table->decimal('prix', 10, 2)->nullable();
             $table->timestamps();
 
             $table->index(['piece_id', 'is_active']);

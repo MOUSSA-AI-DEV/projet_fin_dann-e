@@ -6,17 +6,21 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'AutoParts') }} - @yield('title', 'Boutique')</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/theme-fluide.css') }}">
     <style>
+
         :root {
-            --bg-color: #0f172a; /* slate-900 */
-            --bg-secondary: #1e293b; /* slate-800 */
-            --bg-tertiary: #334155; /* slate-700 */
-            --text-primary: #f8fafc; /* slate-50 */
-            --text-secondary: #94a3b8; /* slate-400 */
-            --accent: #dc2626; /* red-600 */
-            --accent-hover: #b91c1c; /* red-700 */
-            --border-color: #334155;
-            --success: #10b981;
+            --bg-color: #F8FAFC; 
+            --bg-secondary: #FFFFFF; 
+            --bg-tertiary: #F1F5F9; 
+            --text-primary: #0F172A; 
+            --text-secondary: #475569; 
+            --accent: #2563EB; 
+            --accent-hover: #1D4ED8; 
+            --border-color: #E2E8F0;
+            --success: #16A34A;
+            --warning: #F59E0B;
+            --error: #DC2626;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,12 +32,14 @@
         header { background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
         .header-top { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; height: 80px; }
         
-        .logo { font-size: 1.5rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 0.5rem; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; }
+
         .logo span { color: var(--accent); }
 
         .search-bar { flex: 1; max-width: 500px; margin: 0 2rem; position: relative; }
         .search-bar form { display: flex; width: 100%; }
-        .search-bar input { width: 100%; padding: 0.75rem 1rem; border-radius: 8px 0 0 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: white; outline: none; }
+        .search-bar input { width: 100%; padding: 0.75rem 1rem; border-radius: 8px 0 0 8px; border: 1px solid var(--border-color); background: white; color: var(--text-primary); outline: none; }
+
         .search-bar input:focus { border-color: var(--accent); }
         .search-bar button { padding: 0.75rem 1.5rem; background: var(--accent); border: none; border-radius: 0 8px 8px 0; color: white; cursor: pointer; font-weight: 600; transition: background 0.2s; }
         .search-bar button:hover { background: var(--accent-hover); }
@@ -49,13 +55,15 @@
         .nav-links a { color: var(--text-primary); font-weight: 500; font-size: 0.95rem; white-space: nowrap; transition: color 0.2s; }
         .nav-links a:hover { color: var(--accent); }
 
-        .hamburger { display: none; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
+        .hamburger { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.8rem; cursor: pointer; }
+
 
         /* BUTTONS */
         .btn { display: inline-flex; justify-content: center; align-items: center; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; gap: 0.5rem; }
         .btn-primary { background: var(--accent); color: white; }
         .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: white; }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); }
+
         .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
         .btn-success { background: var(--success); color: white; }
         .btn-success:hover { filter: brightness(1.1); }
@@ -70,7 +78,8 @@
         /* FOOTER */
         footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 3rem 5% 1rem; margin-top: auto; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .footer-col h4 { color: white; font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700; }
+        .footer-col h4 { color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700; }
+
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 0.5rem; color: var(--text-secondary); }
         .footer-col ul li a:hover { color: var(--accent); }
@@ -87,7 +96,8 @@
         /* FORMS */
         .form-group { margin-bottom: 1.2rem; }
         .form-label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-secondary); font-size: 0.9rem;}
-        .form-control { width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: white; outline: none; transition: border-color 0.2s; }
+        .form-control { width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); background: white; color: var(--text-primary); outline: none; transition: border-color 0.2s; }
+
         .form-control:focus { border-color: var(--accent); }
 
         /* UTILS */
@@ -130,15 +140,33 @@
         .search-result-img { width: 45px; height: 45px; background: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 2px; }
         .search-result-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .search-result-info { flex: 1; overflow: hidden; }
-        .search-result-name { font-weight: 600; font-size: 0.9rem; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .search-result-name { font-weight: 600; font-size: 0.9rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
         .search-result-meta { font-size: 0.75rem; color: var(--text-secondary); display: flex; justify-content: space-between; }
         .search-result-price { color: var(--accent); font-weight: 700; }
 
         @media (max-width: 768px) {
-            .search-bar { display: none; }
-            .hamburger { display: block; }
+            .header-top { padding: 0.5rem 3%; height: auto; flex-wrap: wrap; gap: 0.5rem; }
+            .logo { order: 1; font-size: 1.2rem; }
+            .header-actions { order: 2; gap: 0.75rem; }
+            .search-bar { order: 3; display: block; max-width: 100%; margin: 0.5rem 0; width: 100%; }
+            .search-bar input { padding: 0.5rem 0.75rem; font-size: 0.9rem; }
+            .search-bar button { padding: 0.5rem 1rem; }
+            
+            .hamburger { display: block; order: 0; }
             .nav-links { display: none; }
+            
+            .action-item span:not(.action-icon) { display: none; }
+            .action-icon { font-size: 1.3rem; }
+            
+            main { padding: 1.5rem 3%; }
+            .section-title { font-size: 1.4rem; }
         }
+        
+        @media (max-width: 480px) {
+            .product-grid { grid-template-columns: 1fr !important; }
+        }
+
     </style>
     @yield('styles')
 </head>

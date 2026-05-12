@@ -147,7 +147,29 @@ class CommandeController extends Controller
             'payment_status' => 'required|string',
         ]);
 
+        $oldStatut = $commande->statut;
+        $newStatut = $validated['statut'];
+
         $commande->update($validated);
+
+        // Gestion du stock en cas d'annulation ou dés-annulation
+        if ($oldStatut !== 'annulée' && $newStatut === 'annulée') {
+            // Restituer le stock
+            foreach ($commande->references as $ligne) {
+                if ($ligne->reference) {
+                    $ligne->reference->increment('stock', $ligne->quantite);
+                }
+            }
+        } elseif ($oldStatut === 'annulée' && $newStatut !== 'annulée') {
+            // Re-déduire le stock
+            foreach ($commande->references as $ligne) {
+                if ($ligne->reference) {
+                    if ($ligne->reference->stock >= $ligne->quantite) {
+                        $ligne->reference->decrement('stock', $ligne->quantite);
+                    }
+                }
+            }
+        }
 
         return redirect()->back()->with('success', 'La commande est mise a jour.');
     }

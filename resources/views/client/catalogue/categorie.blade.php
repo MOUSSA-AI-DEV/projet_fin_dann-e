@@ -24,9 +24,8 @@
             <div style="padding: 1.5rem; flex: 1; display: flex; flex-direction: column;">
                 <div style="font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 0.2rem;">{{ $piece->marque->nom ?? 'Générique' }}</div>
                 <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $piece->nom }}</div>
-                <div style="font-size: 1.4rem; font-weight: 800; color: white; margin-top: auto; padding-top: 1rem;">
-                    <span style="font-size:0.8rem; color:var(--text-secondary); display:block; font-weight:500;">À partir de</span>
-                    {{ number_format($piece->prix, 2) }} MAD
+                <div style="margin-top: auto; padding-top: 1rem; display: flex; justify-content: flex-end;">
+                    <span class="fluid-btn fluid-btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Détails</span>
                 </div>
             </div>
         </a>

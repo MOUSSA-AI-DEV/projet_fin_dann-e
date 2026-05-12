@@ -1,0 +1,4 @@
+reference,nom,piece,categorie,marque,prix,stock,description
+REF-001,Plaquettes de frein avant,Plaquettes de frein,Freinage,Bosch,45.50,10,Plaquettes haute performance pour freinage optimal.
+REF-002,Filtre à huile Premium,Filtre à huile,Entretien,Purflux,12.00,50,Filtre à huile de haute qualité pour moteur diesel.
+REF-003,Bougie d'allumage Iridium,Bougie d'allumage,Allumage,NGK,8.50,100,Bougie longue durée pour moteurs essence.

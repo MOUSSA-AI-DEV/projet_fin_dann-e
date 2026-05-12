@@ -10,7 +10,6 @@ class Piece extends Model
         'nom',
         'slug',
         'reference_fournisseur',
-        'prix',
         'description',
         'caracteristiques',
         'images',
@@ -21,7 +20,6 @@ class Piece extends Model
     ];
 
     protected $casts = [
-        'prix' => 'float',
         'caracteristiques' => 'array',
         'images' => 'array',
         'is_visible' => 'boolean',

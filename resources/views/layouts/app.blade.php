@@ -5,40 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Application') }} - @yield('title', 'Dashboard')</title>
+    <link rel="stylesheet" href="{{ asset('css/theme-fluide.css') }}">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
             --sidebar-width: 260px;
-            --sidebar-bg: #000000;
-            --sidebar-hover: #262626;
-            --sidebar-active: #ffffff;
-            --sidebar-text: #a3a3a3;
-            --sidebar-text-active: #000000;
-            --topbar-height: 60px;
-            --accent: #ffffff;
+            --sidebar-collapsed-width: 78px;
+            --sidebar-bg: #0F172A; 
+            --sidebar-hover: #1E293B;
+            --sidebar-active: #3B82F6;
+            --sidebar-text: #94A3B8;
+            --sidebar-text-active: #FFFFFF;
+            --topbar-height: 64px;
+            --topbar-bg: #FFFFFF;
+            --accent: #2563EB;
+            --accent-hover: #1D4ED8;
+            --page-bg: #F8FAFC;
+            --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
         }
+
+
+
+
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f1f5f9;
+            background: var(--page-bg);
             color: #1e293b;
             min-height: 100vh;
             display: flex;
         }
 
+
         /* ── SIDEBAR ── */
         .sidebar {
             width: var(--sidebar-width);
             min-height: 100vh;
-            background: var(--sidebar-bg);
+            background: linear-gradient(180deg, var(--sidebar-bg) 0%, #1E3A8A 100%);
             display: flex;
             flex-direction: column;
             position: fixed;
             top: 0; left: 0;
             z-index: 100;
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            overflow-x: hidden;
         }
+
+        body.collapsed .sidebar {
+            width: var(--sidebar-collapsed-width);
+        }
+
 
         .sidebar-logo {
             height: var(--topbar-height);
@@ -50,17 +66,32 @@
         }
         .sidebar-logo .logo-icon {
             width: 36px; height: 36px;
-            background: #ffffff;
+            background: var(--accent);
             border-radius: 4px;
             display: flex; align-items: center; justify-content: center;
-            color: #000000; font-weight: 800; font-size: 1.2rem;
+            color: #ffffff; font-weight: 800; font-size: 1.2rem;
             flex-shrink: 0;
         }
+
         .sidebar-logo span {
             color: #f8fafc;
             font-weight: 700;
             font-size: 1.05rem;
             letter-spacing: 0.3px;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+        }
+
+        body.collapsed .sidebar-logo span,
+        body.collapsed .nav-section-title,
+        body.collapsed .nav-text,
+        body.collapsed .nav-badge,
+        body.collapsed .user-info,
+        body.collapsed .btn-logout span:last-child {
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            display: none;
         }
 
         .sidebar-nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
@@ -92,10 +123,13 @@
             color: var(--sidebar-text-active);
         }
         .nav-item.active {
-            background: #ffffff;
-            color: #000000;
+            background: var(--sidebar-active);
+            color: #ffffff;
             font-weight: 700;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
+
+
         .nav-item .nav-icon {
             font-size: 1.1rem;
             width: 20px;
@@ -159,20 +193,29 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.collapsed .main-wrapper {
+            margin-left: var(--sidebar-collapsed-width);
         }
 
         /* ── TOPBAR ── */
         .topbar {
             height: var(--topbar-height);
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
+            background: var(--topbar-bg);
+            border-bottom: 2px solid var(--accent);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 2rem;
             position: sticky; top: 0; z-index: 50;
+            color: #1E293B;
+            box-shadow: var(--card-shadow);
         }
-        .topbar-title { font-size: 1.1rem; font-weight: 600; color: #1e293b; }
+        .topbar-title { font-size: 1.1rem; font-weight: 700; color: #0F172A; }
+
+
         .topbar-actions { display: flex; align-items: center; gap: 1rem; }
         .topbar-actions .notification-btn {
             width: 36px; height: 36px;
@@ -192,11 +235,73 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
             .sidebar.open { transform: translateX(0); }
             .main-wrapper { margin-left: 0; }
-            .mobile-toggle { display: flex; }
+            .mobile-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #f1f5f9; border-radius: 8px; }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(15, 23, 42, 0.5);
+                backdrop-filter: blur(2px);
+                z-index: 90;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .sidebar-overlay.show {
+                display: block;
+                opacity: 1;
+            }
         }
+
+        /* ── PAGINATION PREMIUM ── */
+        .pagination {
+            display: flex;
+            gap: 0.4rem;
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+        .page-item { margin: 0; }
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            height: 38px;
+            padding: 0 0.5rem;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            color: #475569;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .page-link:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            background: #eff6ff;
+            transform: translateY(-1px);
+        }
+        .page-item.active .page-link {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+        .page-item.disabled .page-link {
+            background: #f8fafc;
+            color: #cbd5e1;
+            border-color: #f1f5f9;
+            cursor: not-allowed;
+        }
+        .pagination .hidden { display: none; }
+        .pagination svg { width: 1.25rem; height: 1.25rem; }
     </style>
 </head>
 <body>
@@ -213,7 +318,7 @@
 
             <a href="{{ route('admin.dashboard') }}"
                class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <span class="nav-icon">🏠</span> Dashboard
+                <span class="nav-icon">🏠</span> <span class="nav-text">Dashboard</span>
             </a>
 
             @if(Auth::user()->role === 'admin')
@@ -221,32 +326,35 @@
 
 
             <a href="{{ route('admin.users.index') }}" class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                <span class="nav-icon">👥</span> Utilisateurs
+                <span class="nav-icon">👥</span> <span class="nav-text">Utilisateurs</span>
             </a>
             @endif
 
             <div class="nav-section-title">Catalogue</div>
 
             <a href="{{ route('admin.pieces.index') }}" class="nav-item {{ request()->routeIs('admin.pieces.*') ? 'active' : '' }}">
-                <span class="nav-icon">🔩</span> Pièces
+                <span class="nav-icon">🔩</span> <span class="nav-text">Pièces</span>
             </a>
             <a href="{{ route('admin.categories.index') }}" class="nav-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                <span class="nav-icon">📁</span> Catégories
+                <span class="nav-icon">📁</span> <span class="nav-text">Catégories</span>
             </a>
             <a href="{{ route('admin.marques.index') }}" class="nav-item {{ request()->routeIs('admin.marques.*') ? 'active' : '' }}">
-                <span class="nav-icon">🏷️</span> Marques
+                <span class="nav-icon">🏷️</span> <span class="nav-text">Marques</span>
             </a>
             <a href="{{ route('admin.voitures.index') }}" class="nav-item {{ request()->routeIs('admin.voitures.*') ? 'active' : '' }}">
-                <span class="nav-icon">🚗</span> Voitures
+                <span class="nav-icon">🚗</span> <span class="nav-text">Voitures</span>
             </a>
             <a href="{{ route('admin.references.index') }}" class="nav-item {{ request()->routeIs('admin.references.*') ? 'active' : '' }}">
-                <span class="nav-icon">📋</span> Références
+                <span class="nav-icon">📋</span> <span class="nav-text">Références</span>
+            </a>
+            <a href="{{ route('admin.factures-fournisseur.index') }}" class="nav-item {{ request()->routeIs('admin.factures-fournisseur.*') ? 'active' : '' }}">
+                <span class="nav-icon">📑</span> <span class="nav-text">Factures Fournisseur</span>
             </a>
 
             <div class="nav-section-title">Ventes & Commandes</div>
 
             <a href="{{ route('admin.commandes.index') }}" class="nav-item {{ request()->routeIs('admin.commandes.*') ? 'active' : '' }}">
-                <span class="nav-icon">📦</span> Commandes
+                <span class="nav-icon">📦</span> <span class="nav-text">Commandes</span>
             </a>
         </nav>
 
@@ -264,19 +372,26 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="btn-logout">
-                    <span>🚪</span> Déconnexion
+                    <span class="nav-icon">🚪</span> <span>Déconnexion</span>
                 </button>
             </form>
         </div>  
     </aside>
 
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
     {{-- ── MAIN ── --}}
     <div class="main-wrapper">
+
         <header class="topbar">
-            <div style="display:flex; align-items:center; gap:1rem;">
-                <button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+            <div style="display:flex; align-items:center; gap:1.5rem;">
+                <button class="mobile-toggle" id="mobile-toggle">☰</button>
+                <button id="collapse-toggle" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">
+                    <span id="collapse-icon">◀</span>
+                </button>
                 <span class="topbar-title">@yield('page-title', 'Dashboard')</span>
             </div>
+
             <div class="topbar-actions">
                 <button class="notification-btn">🔔</button>
             </div>
@@ -309,5 +424,43 @@
         </main>
     </div>
 
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const toggle = document.getElementById('mobile-toggle');
+        const collapseBtn = document.getElementById('collapse-toggle');
+        const collapseIcon = document.getElementById('collapse-icon');
+
+        // Restore state
+        if (localStorage.getItem('sidebar-collapsed') === 'true') {
+            document.body.classList.add('collapsed');
+            if (collapseIcon) collapseIcon.textContent = '▶';
+        }
+
+        function toggleSidebar() {
+            const isOpen = sidebar.classList.toggle('open');
+            overlay.classList.toggle('show', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+
+        if (toggle) toggle.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+        if (collapseBtn) {
+            collapseBtn.addEventListener('click', () => {
+                const isCollapsed = document.body.classList.toggle('collapsed');
+                localStorage.setItem('sidebar-collapsed', isCollapsed);
+                collapseIcon.textContent = isCollapsed ? '▶' : '◀';
+            });
+        }
+
+        // Auto-close on resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                toggleSidebar();
+            }
+        });
+    </script>
 </body>
 </html>
+

@@ -12,10 +12,14 @@
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">ID</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Photo</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Code / Série</th>
+                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">HS Code / Origine</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Pièce Associée</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Voitures Compatibles</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Stock</th>
-                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Prix</th>
+                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">P. Achat</th>
+                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">P. Revient</th>
+                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Coeff/Bénéf</th>
+                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">P. Vente</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Statut</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; text-align: right;">Actions</th>
                 </tr>
@@ -39,6 +43,10 @@
                             @if($reference->garantie)
                                 <div style="margin-top: 4px;"><span class="pill pill-gray">🛡 {{ $reference->garantie }}</span></div>
                             @endif
+                        </td>
+                        <td style="padding: 0.9rem 1rem;">
+                            <div style="font-weight: 600; color: #475569; font-size: 0.8rem;">{{ $reference->hs_code ?? '—' }}</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">{{ $reference->origine ?? '—' }}</div>
                         </td>
                         <td style="padding: 0.9rem 1rem; min-width: 160px;">
                             @if($reference->piece)
@@ -89,7 +97,19 @@
                             @elseif($stock < 50) <span style="color: #b45309; font-weight: 700; font-size: 0.875rem;">{{ $stock }}</span>
                             @else <span class="pill pill-green">{{ $stock }}</span> @endif
                         </td>
-                        <td style="padding: 0.9rem 1rem; font-weight: 700; color: #1e293b; font-size: 0.875rem;">{{ number_format($reference->prix, 2, ',', ' ') }} MAD</td>
+                        <td style="padding: 0.9rem 1rem; font-size: 0.875rem; color: #64748b;">
+                            {{ number_format($reference->prix_achat, 2, ',', ' ') }} MAD
+                        </td>
+                        <td style="padding: 0.9rem 1rem; font-size: 0.875rem; color: #1e293b;">
+                            {{ number_format($reference->prix_revient, 2, ',', ' ') }} MAD
+                        </td>
+                        <td style="padding: 0.9rem 1rem; font-size: 0.8rem; color: #059669;">
+                            <div>C: {{ $reference->coefficient_charges * 100 }}%</div>
+                            <div>B: {{ $reference->coefficient_beneficiaire * 100 }}% (+{{ number_format($reference->benefice, 2, ',', ' ') }} MAD)</div>
+                        </td>
+                        <td style="padding: 0.9rem 1rem; font-weight: 800; color: #2563eb; font-size: 0.95rem;">
+                            {{ number_format($reference->prix_vente, 2, ',', ' ') }} MAD
+                        </td>
                         <td style="padding: 0.9rem 1rem;">
                             @if($reference->is_active) <span class="pill pill-green">● Actif</span>
                             @else <span class="pill pill-red">● Inactif</span> @endif

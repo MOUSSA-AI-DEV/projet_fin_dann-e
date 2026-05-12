@@ -8,14 +8,50 @@
                 <span style="font-size: 0.875rem; color: #64748b; background: #f1f5f9; padding: 4px 12px; border-radius: 20px;">ID #{{ $reference->id }}</span>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
                 <div>
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem;">Code Référence</label>
                     <div style="font-size: 1.1rem; color: #1e293b; font-weight: 600;">{{ $reference->reference }}</div>
                 </div>
                 <div>
+                    <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem;">HS Code</label>
+                    <div style="font-size: 1.1rem; color: #1e293b;">{{ $reference->hs_code ?? '—' }}</div>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem;">Origine</label>
+                    <div style="font-size: 1.1rem; color: #1e293b;">{{ $reference->origine ?? '—' }}</div>
+                </div>
+                <div>
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem;">Garantie</label>
-                    <div style="font-size: 1.1rem; color: #1e293b;">{{ $reference->garantie ?? 'Non spécifiée' }}</div>
+                    <div style="font-size: 1.1rem; color: #1e293b;">{{ $reference->garantie ?? '—' }}</div>
+                </div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 2rem;">
+                <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 1rem;">Analyse des Prix</label>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                    <div>
+                        <div style="font-size: 0.7rem; color: #64748b; margin-bottom: 4px;">Prix d'Achat</div>
+                        <div style="font-weight: 600; color: #1e293b;">{{ number_format($reference->prix_achat, 2, ',', ' ') }} MAD</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.7rem; color: #64748b; margin-bottom: 4px;">Coeff. Charges</div>
+                        <div style="font-weight: 600; color: #1e293b;">{{ $reference->coefficient_charges * 100 }}%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.7rem; color: #64748b; margin-bottom: 4px;">Prix de Revient</div>
+                        <div style="font-weight: 700; color: #1e293b; border-bottom: 2px solid #e2e8f0; display: inline-block;">{{ number_format($reference->prix_revient, 2, ',', ' ') }} MAD</div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div>
+                        <div style="font-size: 0.7rem; color: #64748b; margin-bottom: 4px;">Coeff. / Bénéfice</div>
+                        <div style="font-weight: 600; color: #059669;">{{ $reference->coefficient_beneficiaire * 100 }}% (+{{ number_format($reference->benefice, 2, ',', ' ') }} MAD)</div>
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <div style="font-size: 0.7rem; color: #64748b; margin-bottom: 4px;">Prix de Vente Final</div>
+                        <div style="font-size: 1.25rem; font-weight: 800; color: #2563eb;">{{ number_format($reference->prix_vente, 2, ',', ' ') }} MAD</div>
+                    </div>
                 </div>
             </div>
 

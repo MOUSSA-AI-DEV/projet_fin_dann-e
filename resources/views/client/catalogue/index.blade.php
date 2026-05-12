@@ -24,7 +24,7 @@
     .filter-list { list-style: none; margin-bottom: 2rem; }
     .filter-list li { margin-bottom: 0.5rem; }
     .filter-list label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-secondary); transition: color 0.2s; }
-    .filter-list label:hover { color: white; }
+    .filter-list label:hover { color: var(--accent); }
     .filter-list input[type="radio"] { accent-color: var(--accent); }
 
     .product-grid {
@@ -57,7 +57,8 @@
     .product-info { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
     .product-brand { font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 0.2rem; }
     .product-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .product-price { font-size: 1.4rem; font-weight: 800; color: white; margin-top: auto; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-top: auto; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
+
 
     @media (max-width: 900px) {
         .layout-grid { grid-template-columns: 1fr; }
@@ -143,12 +144,8 @@
                         <div class="product-info">
                             <div class="product-brand">{{ $piece->marque->nom ?? 'Générique' }}</div>
                             <div class="product-title">{{ $piece->nom }}</div>
-                            <div class="product-price">
-                                <div>
-                                    <span style="font-size:0.8rem; color:var(--text-secondary); display:block; font-weight:500;">À partir de</span>
-                                    {{ number_format($piece->prix, 2) }} MAD
-                                </div>
-                                <span class="btn btn-sm btn-outline">Détails</span>
+                            <div class="product-price" style="justify-content: flex-end;">
+                                <span class="fluid-btn fluid-btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Détails</span>
                             </div>
                         </div>
                     </a>

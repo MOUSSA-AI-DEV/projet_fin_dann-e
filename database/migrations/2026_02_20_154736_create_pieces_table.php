@@ -11,7 +11,6 @@ return new class extends Migration {
             $table->string('nom', 150);
             $table->string('slug', 150)->unique();
             $table->string('reference_fournisseur', 50)->nullable();
-            $table->decimal('prix', 10, 2);
             $table->text('description')->nullable();
             $table->json('caracteristiques')->nullable();
             $table->json('images')->nullable();

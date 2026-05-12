@@ -40,7 +40,8 @@
         box-shadow: 0 10px 25px rgba(220, 38, 38, 0.1);
     }
     .category-icon { font-size: 3rem; margin-bottom: 0.5rem; }
-    .category-name { font-weight: 700; font-size: 1.1rem; color: white; }
+    .category-name { font-weight: 700; font-size: 1.1rem; color: var(--text-primary); }
+
 
     .product-grid {
         display: grid;
@@ -72,7 +73,9 @@
     .product-info { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
     .product-brand { font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 0.2rem; }
     .product-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .product-price { font-size: 1.4rem; font-weight: 800; color: white; margin-top: auto; padding-top: 1rem; }
+    .product-price { font-size: 1.4rem; font-weight: 800; color: var(--text-primary); margin-top: auto; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
+
+
 </style>
 @endsection
 
@@ -118,14 +121,11 @@
             <div class="product-info">
                 <div class="product-brand">{{ $piece->marque->nom ?? 'Générique' }}</div>
                 <div class="product-title">{{ $piece->nom }}</div>
-                <div class="product-price">
-                    @if($piece->references->count() > 0)
-                        À partir de {{ number_format($piece->references->min('prix') ?? $piece->prix, 2) }} MAD
-                    @else
-                        {{ number_format($piece->prix, 2) }} MAD
-                    @endif
+                <div class="product-price" style="justify-content: flex-end;">
+                    <span class="fluid-btn fluid-btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Détails</span>
                 </div>
             </div>
+
         </a>
         @endforeach
     </div>

@@ -53,8 +53,9 @@
     .references-table th:last-child { border-radius: 0 8px 8px 0; }
     
     .references-table td { padding: 1rem; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
-    .ref-code { font-family: monospace; font-size: 1.1rem; color: white; background: var(--bg-secondary); padding: 0.3rem 0.6rem; border-radius: 4px; border: 1px solid var(--border-color); }
-    .ref-price { font-size: 1.25rem; font-weight: 800; color: white; }
+    .ref-code { font-family: monospace; font-size: 1.1rem; color: var(--text-main); background: var(--bg-tertiary); padding: 0.3rem 0.6rem; border-radius: 4px; border: 1px solid var(--border-color); }
+    .ref-price { font-size: 1.25rem; font-weight: 800; color: var(--text-main); }
+
 
     @media (max-width: 900px) {
         .piece-header { grid-template-columns: 1fr; }

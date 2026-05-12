@@ -28,7 +28,7 @@ class AuthController extends Controller
             if (!$user->is_active) {
                 Auth::logout();
                 throw ValidationException::withMessages([
-                    'email' => 'Votre compte est desactive. Veuillez contacter administrateur.',
+                    'email' => 'Votre compte est désactivé. Veuillez contacter l\'administrateur.',
                 ]);
             }
 
@@ -39,8 +39,9 @@ class AuthController extends Controller
             return redirect()->intended('/');
         }
 
-       
-    }
+        throw ValidationException::withMessages([
+            'email' => __('auth.failed'),
+        ]);}
 
     public function showRegisterForm()
     {
