@@ -55,22 +55,47 @@ class Reference extends Model
         return $this->belongsToMany(Command::class, 'commande_reference');
     }
 
-    // Accessors for price calculations
+    public function getPmpAttribute()
+    {
+        // On récupère toutes les entrées pour cette même référence
+        $records = self::where('reference', $this->reference)->get();
+        
+        $valeurTotale = 0;
+        $quantiteTotale = 0;
+
+        foreach ($records as $record) {
+            $valeurTotale += ($record->prix_achat * $record->stock);
+            $quantiteTotale += $record->stock;
+        }
+
+        if ($quantiteTotale > 0) {
+            return $valeurTotale / $quantiteTotale;
+        }
+
+        return $this->prix_achat; // Par défaut si stock à zéro
+    }
 
     public function getPrixRevientAttribute()
     {
-        $pa = $this->prix_achat ?: 0;
+        $pa = $this->pmp; // On utilise le PMP au lieu du prix d'achat simple
         $cc = $this->coefficient_charges ?: 0;
         return $pa * (1 + $cc);
     }
 
     public function getBeneficeAttribute()
     {
-        return $this->prix_revient * ($this->coefficient_beneficiaire ?: 0);
+        $pa = $this->pmp; // On utilise le PMP pour le calcul du bénéfice
+        $cb = $this->coefficient_beneficiaire ?: 0;
+        return $pa * $cb;
     }
 
     public function getPrixVenteAttribute()
     {
         return $this->prix_revient + $this->benefice;
+    }
+
+    public function getPrixTtcAttribute()
+    {
+        return $this->prix_vente * 1.2;
     }
 }

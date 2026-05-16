@@ -12,6 +12,7 @@
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">ID</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Photo</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Code / Série</th>
+                    <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Facture</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">HS Code / Origine</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Pièce Associée</th>
                     <th style="padding: 0.85rem 1rem; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Voitures Compatibles</th>
@@ -42,6 +43,16 @@
                             <div style="font-size: 0.78rem; color: #64748b; margin-top: 2px;">{{ $reference->nom }}</div>
                             @if($reference->garantie)
                                 <div style="margin-top: 4px;"><span class="pill pill-gray">🛡 {{ $reference->garantie }}</span></div>
+                            @endif
+                        </td>
+                        <td style="padding: 0.9rem 1rem;">
+                            @if($reference->factureFournisseur)
+                                <a href="{{ route('admin.factures-fournisseur.show', $reference->factureFournisseur) }}" style="color: #2563eb; font-weight: 600; font-size: 0.8rem; text-decoration: none;">
+                                    📄 {{ $reference->factureFournisseur->numero }}
+                                </a>
+                                <div style="font-size: 0.7rem; color: #94a3b8;">{{ $reference->factureFournisseur->fournisseur }}</div>
+                            @else
+                                <span style="color: #cbd5e1; font-size: 0.78rem;">Manuelle</span>
                             @endif
                         </td>
                         <td style="padding: 0.9rem 1rem;">
@@ -98,7 +109,7 @@
                             @else <span class="pill pill-green">{{ $stock }}</span> @endif
                         </td>
                         <td style="padding: 0.9rem 1rem; font-size: 0.875rem; color: #64748b;">
-                            {{ number_format($reference->prix_achat, 2, ',', ' ') }} MAD
+                            {{ number_format($reference->pmp, 2, ',', ' ') }} MAD
                         </td>
                         <td style="padding: 0.9rem 1rem; font-size: 0.875rem; color: #1e293b;">
                             {{ number_format($reference->prix_revient, 2, ',', ' ') }} MAD

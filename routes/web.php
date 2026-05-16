@@ -76,10 +76,12 @@ Route::middleware('auth')->group(function () {
             Route::resource('pieces', PieceController::class);
             Route::post('references/import', [ReferenceController::class, 'import'])->name('references.import');
             Route::post('references/update-global-pricing', [ReferenceController::class, 'updateGlobalPricing'])->name('references.update-global-pricing');
+            Route::patch('references/{reference}/update-pricing', [ReferenceController::class, 'updatePricing'])->name('references.update-pricing');
             Route::resource('references', ReferenceController::class);
 
             Route::resource('voitures', VoitureController::class);
             Route::resource('factures-fournisseur', \App\Http\Controllers\Admin\FactureFournisseurController::class)->only(['index', 'show', 'destroy']);
+            Route::post('factures-fournisseur/{id}/reactivate', [\App\Http\Controllers\Admin\FactureFournisseurController::class, 'reactivate'])->name('factures-fournisseur.reactivate');
             Route::resource('commandes', AdminCommandeController::class)->except(['destroy', 'edit']);
             Route::get('commandes/{commande}/facture', [AdminCommandeController::class, 'showFacture'])->name('commandes.facture');
             Route::post('references/{reference}/voitures', [ReferenceVoitureController::class, 'attachVoiture'])->name('references.voitures.attach');

@@ -87,11 +87,22 @@ class ReferenceImport implements ToModel, WithHeadingRow, WithValidation, WithBa
             return null;
         }
 
-        $reference = Reference::firstOrNew(['reference' => $referenceCode]);
+        // Rechercher par code de référence ET par facture pour autoriser les doublons sur des factures différentes
+        $reference = Reference::where('reference', $referenceCode);
+        
+        if ($this->facture) {
+            $reference->where('facture_fournisseur_id', $this->facture->id);
+        }
+
+        $reference = $reference->firstOrNew([
+            'reference' => $referenceCode,
+            'facture_fournisseur_id' => $this->facture ? $this->facture->id : null
+        ]);
 
         $reference->nom = $pieceName;
         if (!$reference->exists) {
-            $reference->slug = Str::slug($pieceName . '-' . $referenceCode);
+            $invoiceSuffix = $this->facture ? '-' . $this->facture->id : '';
+            $reference->slug = Str::slug($pieceName . '-' . $referenceCode . $invoiceSuffix);
         }
         $reference->piece_id = $piece->id;
         

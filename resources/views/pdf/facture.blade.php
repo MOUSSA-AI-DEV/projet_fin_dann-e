@@ -106,24 +106,24 @@
     <table class="items">
         <thead>
             <tr>
-                <th>Ref.OEM</th>
-                <th>Désignation</th>
-                <th>Qté</th>
-                <th>P.U. TTC</th>
-                <th style="text-align: right;">Total TTC</th>
+                <th style="font-size: 0.8rem;">Ref.</th>
+                <th style="font-size: 0.8rem;">Désignation</th>
+                <th style="font-size: 0.8rem; text-align: center;">Qté</th>
+                <th style="font-size: 0.9rem; padding: 12px;">P.U. HT</th>
+                <th style="font-size: 0.9rem; padding: 12px; text-align: right;">P.U. TTC</th>
             </tr>
         </thead>
         <tbody>
             @foreach($commande->references as $ligne)
             <tr>
-                <td style="font-family: monospace;">{{ $ligne->reference->reference }}</td>
-                <td>
+                <td style="font-family: monospace; font-size: 0.8rem;">{{ $ligne->reference->reference }}</td>
+                <td style="font-size: 0.8rem;">
                     <strong>{{ $ligne->reference->piece->nom ?? 'Pièce' }}</strong><br>
-                    {{ $ligne->reference->nom }}
+                    <small>{{ $ligne->reference->nom }}</small>
                 </td>
-                <td style="text-align: center;">{{ $ligne->quantite }}</td>
-                <td>{{ number_format($ligne->prix_unitaire, 2) }} €</td>
-                <td style="text-align: right;">{{ number_format($ligne->total_ligne, 2) }} €</td>
+                <td style="text-align: center; font-size: 0.8rem;">{{ $ligne->quantite }}</td>
+                <td style="text-align: center; font-size: 1rem; padding: 12px; font-weight: 600;">{{ number_format($ligne->prix_unitaire_ht, 2) }}</td>
+                <td style="text-align: right; font-size: 1rem; padding: 12px; font-weight: 800; color: #1e293b;">{{ number_format($ligne->prix_unitaire, 2) }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -131,16 +131,16 @@
 
     <table class="totals">
         <tr>
-            <td>Sous-total (HT)</td>
-            <td style="text-align: right;">{{ number_format($commande->total / 1.2, 2) }} €</td>
+            <td>Total HT</td>
+            <td style="text-align: right;">{{ number_format($commande->total_ht, 2, ',', ' ') }} MAD</td>
         </tr>
         <tr>
             <td>TVA (20%)</td>
-            <td style="text-align: right;">{{ number_format($commande->total - ($commande->total / 1.2), 2) }} €</td>
+            <td style="text-align: right;">{{ number_format($commande->tva, 2, ',', ' ') }} MAD</td>
         </tr>
         <tr class="final-total">
             <td>TOTAL TTC</td>
-            <td style="text-align: right;">{{ number_format($commande->total, 2) }} €</td>
+            <td style="text-align: right;">{{ number_format($commande->total, 2, ',', ' ') }} MAD</td>
         </tr>
     </table>
 

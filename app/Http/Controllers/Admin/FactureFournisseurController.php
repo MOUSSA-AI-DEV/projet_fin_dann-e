@@ -26,6 +26,22 @@ class FactureFournisseurController extends Controller
         $facture = FactureFournisseur::findOrFail($id);
         $facture->status = 'annulée';
         $facture->save();
-        return redirect()->route('admin.factures-fournisseur.index')->with('success', 'Facture annulée et archivée avec succès.');
+
+        // Facultatif : On peut aussi désactiver les références liées
+        $facture->references()->update(['is_active' => false]);
+
+        return redirect()->route('admin.factures-fournisseur.index')->with('success', 'Facture annulée et références associées désactivées.');
+    }
+
+    public function reactivate($id)
+    {
+        $facture = FactureFournisseur::findOrFail($id);
+        $facture->status = 'valide';
+        $facture->save();
+
+        // Réactiver les références liées
+        $facture->references()->update(['is_active' => true]);
+
+        return redirect()->route('admin.factures-fournisseur.index')->with('success', 'Facture réactivée et références associées activées.');
     }
 }

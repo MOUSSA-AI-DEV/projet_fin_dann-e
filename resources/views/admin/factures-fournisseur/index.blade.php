@@ -64,6 +64,11 @@
                                                 @csrf @method('DELETE')
                                                 <button type="submit" style="padding: 0.4rem 0.8rem; background: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600;">Annuler</button>
                                             </form>
+                                        @else
+                                            <form action="{{ route('admin.factures-fournisseur.reactivate', $facture->id) }}" method="POST" onsubmit="return confirm('Voulez-vous réactiver cette facture ?')">
+                                                @csrf
+                                                <button type="submit" style="padding: 0.4rem 0.8rem; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600;">Réactiver</button>
+                                            </form>
                                         @endif
                                     </div>
                                 </td>

@@ -22,9 +22,9 @@
                             <tr style="border-bottom: 2px solid #f1f5f9; background: #fafafa;">
                                 <th style="padding: 0.75rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase;">Photo</th>
                                 <th style="padding: 0.75rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase;">Référence</th>
-                                <th style="padding: 0.75rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase; text-align: center;">Prix Unitaire</th>
+                                <th style="padding: 0.75rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase; text-align: center;">P.U. HT</th>
+                                <th style="padding: 0.75rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase; text-align: center;">P.U. TTC</th>
                                 <th style="padding: 0.75rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase; text-align: center;">Qté</th>
-                                <th style="padding: 0.75rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase; text-align: right;">Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,16 +46,24 @@
                                         <div style="font-weight: 700; color: #1e293b; font-size: 0.875rem;">{{ $ligne->reference->nom }}</div>
                                         <div style="font-size: 0.75rem; color: #64748b;">Code: {{ $ligne->reference->reference }}</div>
                                     </td>
-                                    <td style="padding: 0.75rem; text-align: center; color: #475569;">{{ number_format($ligne->prix_unitaire, 2) }} MAD</td>
+                                    <td style="padding: 0.75rem; text-align: center; color: #64748b; font-size: 0.85rem;">{{ number_format($ligne->prix_unitaire_ht, 2) }} MAD</td>
+                                    <td style="padding: 0.75rem; text-align: center; color: #475569; font-size: 0.85rem;">{{ number_format($ligne->prix_unitaire, 2) }} MAD</td>
                                     <td style="padding: 0.75rem; text-align: center; color: #475569;">{{ $ligne->quantite }}</td>
-                                    <td style="padding: 0.75rem; text-align: right; font-weight: 700; color: #1e293b;">{{ number_format($ligne->total_ligne, 2) }} MAD</td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" style="padding: 1rem; text-align: right; font-weight: 600; color: #64748b;">Total TTC</td>
-                                <td style="padding: 1rem; text-align: right; font-weight: 800; color: #1e293b; font-size: 1.1rem;">{{ number_format($commande->total, 2, ',', ' ') }} MAD</td>
+                                <td colspan="3" style="padding: 0.5rem 1rem; text-align: right; font-weight: 600; color: #64748b;">Total HT</td>
+                                <td style="padding: 0.5rem 1rem; text-align: right; font-weight: 600; color: #475569;">{{ number_format($commande->total_ht, 2, ',', ' ') }} MAD</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="padding: 0.5rem 1rem; text-align: right; font-weight: 600; color: #64748b;">TVA (20%)</td>
+                                <td style="padding: 0.5rem 1rem; text-align: right; font-weight: 600; color: #475569;">{{ number_format($commande->tva, 2, ',', ' ') }} MAD</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td colspan="3" style="padding: 1rem; text-align: right; font-weight: 700; color: #1e293b;">TOTAL TTC</td>
+                                <td style="padding: 1rem; text-align: right; font-weight: 800; color: #e11d48; font-size: 1.2rem;">{{ number_format($commande->total, 2, ',', ' ') }} MAD</td>
                             </tr>
                         </tfoot>
                     </table>

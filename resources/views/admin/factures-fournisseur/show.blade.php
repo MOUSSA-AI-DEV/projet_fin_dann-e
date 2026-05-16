@@ -87,6 +87,8 @@
                             <th style="padding: 0.75rem 1rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase;">HS Code / Origine</th>
                             <th style="padding: 0.75rem 1rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase; text-align: center;">Stock</th>
                             <th style="padding: 0.75rem 1rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase;">P. Achat (MAD)</th>
+                            <th style="padding: 0.75rem 1rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase;">P. Revient</th>
+                            <th style="padding: 0.75rem 1rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase;">Bénéfice</th>
                             <th style="padding: 0.75rem 1rem; color: #64748b; font-size: 0.7rem; text-transform: uppercase;">P. Vente (MAD)</th>
                         </tr>
                     </thead>
@@ -106,7 +108,17 @@
                                     <span style="font-weight: 700; color: #475569;">{{ $ref->stock }}</span>
                                 </td>
                                 <td style="padding: 0.75rem 1rem; font-size: 0.85rem; color: #64748b;">{{ number_format($ref->prix_achat, 2, ',', ' ') }}</td>
-                                <td style="padding: 0.75rem 1rem; font-weight: 700; font-size: 0.85rem; color: #2563eb;">{{ number_format($ref->prix_vente, 2, ',', ' ') }}</td>
+                                <td style="padding: 0.75rem 1rem; font-size: 0.85rem; color: #1e293b;" id="revient-{{ $ref->id }}">{{ number_format($ref->prix_revient, 2, ',', ' ') }}</td>
+                                <td style="padding: 0.75rem 1rem; font-size: 0.85rem; color: #059669;">
+                                    <span id="benef-{{ $ref->id }}">+{{ number_format($ref->benefice, 2, ',', ' ') }}</span>
+                                    <div style="margin-top: 5px;">
+                                        <input type="number" step="0.01" value="{{ $ref->coefficient_beneficiaire }}" 
+                                               style="width: 60px; padding: 2px 4px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 0.75rem;"
+                                               onchange="updateRefPricing({{ $ref->id }}, this.value)">
+                                        <small style="color: #94a3b8;">coeff</small>
+                                    </div>
+                                </td>
+                                <td style="padding: 0.75rem 1rem; font-weight: 700; font-size: 0.85rem; color: #2563eb;" id="vente-{{ $ref->id }}">{{ number_format($ref->prix_vente, 2, ',', ' ') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -114,4 +126,35 @@
             </div>
         </div>
     </div>
+
+    <script>
+        async function updateRefPricing(refId, newCoeff) {
+            try {
+                const response = await fetch(`/admin/references/${refId}/update-pricing`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ coefficient_beneficiaire: newCoeff })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById(`revient-${refId}`).textContent = data.prix_revient;
+                    document.getElementById(`benef-${refId}`).textContent = '+' + data.benefice;
+                    document.getElementById(`vente-${refId}`).textContent = data.prix_vente;
+                    
+                    // Optionnel : petite animation de succès
+                    const row = document.getElementById(`vente-${refId}`).parentElement;
+                    row.style.backgroundColor = '#f0fdf4';
+                    setTimeout(() => row.style.backgroundColor = 'transparent', 1000);
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour:', error);
+                alert('Erreur lors de la mise à jour du prix');
+            }
+        }
+    </script>
 </x-app-layout>

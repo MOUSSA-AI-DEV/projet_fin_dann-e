@@ -47,7 +47,23 @@ class CommandeController extends Controller
     public function create()
     {
         $users = User::orderBy('nom')->get();
-        $references = Reference::with('piece')->where('stock', '>', 0)->get();
+        // Grouper les références par leur code unique pour n'en afficher qu'une seule par nom
+        $references = Reference::with('piece')
+            ->where('stock', '>', 0)
+            ->get()
+            ->groupBy('reference')
+            ->map(function($group) {
+                $first = $group->first();
+                return (object)[
+                    'id' => $first->id,
+                    'reference' => $first->reference,
+                    'nom' => $first->nom,
+                    'piece' => $first->piece,
+                    'stock' => $group->sum('stock'),
+                    'prix_vente' => $first->prix_vente, // Le getter PMP gère la moyenne
+                    'prix_revient' => $first->prix_revient
+                ];
+            });
         
         return view('admin.commandes.create', compact('users', 'references'));
     }
@@ -64,6 +80,7 @@ class CommandeController extends Controller
             
             'references' => 'required|array|min:1',//n accepte pas commande vide
             'references.*.id' => 'required|exists:references,id',//exist dans table references
+            'references.*.prix_revient' => 'required|numeric|min:0',
             'references.*.quantite' => 'required|integer|min:1',
             'references.*.prix' => 'required|numeric|min:0',
         ]);
@@ -75,6 +92,7 @@ class CommandeController extends Controller
             $user = User::findOrFail($userId);
 
             $total = 0;
+            $totalHt = 0;
             $lignes = [];
 
             foreach ($validated['references'] as $refData) {
@@ -84,15 +102,22 @@ class CommandeController extends Controller
                     throw new \Exception("Stock insuffisant pour la référence : {$reference->reference}");
                 }
 
-                $prixUnitaire = $refData['prix'];
+                $prixUnitaireHt = $refData['prix'];
+                $prixUnitaire = $prixUnitaireHt * 1.2;
                 $totalLigne = $prixUnitaire * $refData['quantite'];
+                $totalLigneHt = $prixUnitaireHt * $refData['quantite'];
+                
                 $total += $totalLigne;
+                $totalHt += $totalLigneHt;
 
                 $lignes[] = [
                     'reference_id' => $reference->id,
+                    'prix_revient' => $refData['prix_revient'],
                     'quantite' => $refData['quantite'],
                     'prix_unitaire' => $prixUnitaire,
+                    'prix_unitaire_ht' => $prixUnitaireHt,
                     'total_ligne' => $totalLigne,
+                    'total_ligne_ht' => $totalLigneHt,
                 ];
                 
                 $reference->decrement('stock', $refData['quantite']);
@@ -106,6 +131,8 @@ class CommandeController extends Controller
                 'statut' => $validated['statut'],
                 'notes_client' => $validated['notes_client'],
                 'total' => $total,
+                'total_ht' => $totalHt,
+                'tva' => $total - $totalHt,
             ]);
             //lier commande et les refernces
             foreach ($lignes as $ligne) {

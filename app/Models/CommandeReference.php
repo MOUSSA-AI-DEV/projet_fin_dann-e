@@ -10,9 +10,12 @@ class CommandeReference extends Model
     protected $fillable = [
         'commande_id',
         'reference_id',
+        'prix_revient',
         'quantite',
         'prix_unitaire',
-        'total_ligne'
+        'prix_unitaire_ht',
+        'total_ligne',
+        'total_ligne_ht'
     ];
 
     public function commande()

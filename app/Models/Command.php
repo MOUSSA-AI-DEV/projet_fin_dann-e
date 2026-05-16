@@ -16,6 +16,8 @@ class Command extends Model
         'facture_pdf',
         'notes_client',
         'total',
+        'total_ht',
+        'tva',
         'statut'
     ];
 

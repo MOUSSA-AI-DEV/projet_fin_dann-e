@@ -22,23 +22,20 @@ class ReferenceController extends Controller
         $search = trim($request->input('search', ''));
 
         $query = Reference::with(['piece', 'voitures'])
+            ->select('reference', 'nom', 'piece_id', 'hs_code', 'origine', 'is_active', 'images', 'coefficient_charges', 'coefficient_beneficiaire')
+            ->selectRaw('SUM(stock) as stock')
+            ->selectRaw('MIN(id) as id')
+            ->groupBy('reference', 'nom', 'piece_id', 'hs_code', 'origine', 'is_active', 'images', 'coefficient_charges', 'coefficient_beneficiaire')
             ->when($search !== '', function ($q) use ($search) {
                 $q->where(function ($inner) use ($search) {
                     $inner->where('reference', 'like', "%{$search}%")
                           ->orWhere('nom', 'like', "%{$search}%")
                           ->orWhereHas('piece', fn($q2) =>
                               $q2->where('nom', 'like', "%{$search}%")
-                                 ->orWhereHas('marque', fn($q_m) => 
-                                     $q_m->where('nom', 'like', "%{$search}%")
-                                 )
-                          )
-                          ->orWhereHas('voitures', fn($q3) =>
-                              $q3->where('marque', 'like', "%{$search}%")
-                                 ->orWhere('modele', 'like', "%{$search}%")
                           );
                 });
             })
-            ->latest();
+            ->orderBy('reference');
 
         $references = $query->paginate(15)->appends(['search' => $search]);
 
@@ -275,6 +272,28 @@ class ReferenceController extends Controller
             \Illuminate\Support\Facades\Log::error('Import error: ' . $e->getMessage());
             return redirect()->route('admin.references.index')->with('error', 'Erreur lors de l\'importation : ' . $e->getMessage());
         }
+    }
+
+    public function updatePricing(Request $request, Reference $reference)
+    {
+        $validated = $request->validate([
+            'coefficient_beneficiaire' => 'required|numeric|min:0'
+        ]);
+
+        $reference->coefficient_beneficiaire = $validated['coefficient_beneficiaire'];
+        $reference->prix = $reference->prix_vente;
+        $reference->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'prix_revient' => number_format($reference->prix_revient, 2, ',', ' '),
+                'benefice' => number_format($reference->benefice, 2, ',', ' '),
+                'prix_vente' => number_format($reference->prix_vente, 2, ',', ' ')
+            ]);
+        }
+
+        return back()->with('success', 'Prix mis à jour pour ' . $reference->reference);
     }
 }
 
